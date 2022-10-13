@@ -72,15 +72,15 @@ VALUES
     (NULL, 'amie', '123'),
     (NULL, 'a1li', '12'),
     (NULL, 'DJ', '112'),
-    (NULL, 'Doe', '132'),
+    (NULL, 'Doe', '1321'),
     (NULL, 'Jane', '122'),
-    (NULL, 'JJ', '132'),
-    (NULL, 'Bill', '132'),
+    (NULL, 'JJ', '1323'),
+    (NULL, 'Bill', '1325'),
     (NULL, 'Mansour', '132');
 
             -- SELECT FROM TV_user
 SELECT * FROM TV_user;
-
+drop table TV_user;
 
 
 -- INSERT INTO TV_status
@@ -95,10 +95,26 @@ VALUES
 	INSERT INTO 
 	Watch_instance(instance_id, user_id, show_id, status_id)
 VALUES
- (NULL, 1, 1, 1),
- (NULL, 2, 16, 2),
- (NULL, 3, 8, 1),
- (NULL, 4, 20, 3);
+ (NULL, 31, 1, 1),
+ (NULL, 32, 16, 2),
+ (NULL, 33, 8, 1),
+ (NULL, 34, 20, 3),
+ (NULL, 35, 2, 2),
+ (NULL, 36, 3, 3),
+ (NULL, 37, 1, 2),
+ (NULL, 38, 4, 1),
+  (NULL, 39, 6, 2),
+  (NULL, 40, 7, 1),
+  (NULL, 31, 18, 1),
+  (NULL, 32, 9, 2),
+  (NULL, 33, 11, 1),
+  (NULL, 34, 12, 3),
+  (NULL, 35, 13, 3),
+  (NULL, 36, 15, 1),
+  (NULL, 37, 10, 2),
+  (NULL, 38, 17, 1),
+  (NULL, 39, 14, 3),
+  (NULL, 40, 19, 3);
 
 SELECT * FROM Watch_instance;
 SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_instance.show_id;
