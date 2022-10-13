@@ -28,3 +28,31 @@ VALUES
 -- SELECT FROM TV_show
 SELECT * FROM TV_show;
 
+
+-- INSERT INTO TABLE Category
+INSERT INTO 
+	Category(category_id, category_name)
+VALUES
+	(null,'Anime'),
+	(null,'Anime'),
+	(null,'Sci-Fi'),
+	(null,'Sci-Fi'),
+	(null,'Reality'),
+	(null,'Thriller'),
+	(null,'Crime'),
+	(null,'Drama'),
+	(null,'Drama'),
+	(null,'Drama'),
+	(null,'Action'),
+	(null,'Tragedy'),
+	(null,'Mystery'),
+	(null,'Drama'),
+	(null,'Drama'),
+	(null,'sitcom'),
+	(null,'Drama'),
+	(null,'Action fiction'),
+	(null,'Drama'),
+    (null,'anime');
+
+    -- SELECT FROM TV_show
+SELECT * FROM Category;
