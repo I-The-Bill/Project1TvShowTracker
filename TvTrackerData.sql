@@ -84,3 +84,14 @@ VALUES
  (NULL, 'completed'),
  (NULL, 'in progress'),
  (NULL, 'Not Completed');
+
+ -- INSERT INTO Watch_instance
+	INSERT INTO 
+	Watch_instance(instance_id, user_id, show_id, status_id)
+VALUES
+ (NULL, 5, 1, 1),
+ (NULL, 6, 16, 2),
+ (NULL, 7, 8, 1),
+ (NULL, 8, 20, 3);
+
+SELECT * FROM Watch_instance;
