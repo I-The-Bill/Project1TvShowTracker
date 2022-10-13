@@ -62,3 +62,15 @@ VALUES
         -- SELECT FROM category_show
 SELECT * FROM category_show;
 
+
+-- INSERT INTO TABLE TV_user
+	INSERT INTO 
+	TV_user(user_id, user_name, user_password)
+VALUES
+    (NULL, 'john', '12345'),
+    (NULL, 'allen', '12345'),
+    (NULL, 'amie', '12345'),
+    (NULL, 'a1li', '12345');
+
+            -- SELECT FROM TV_user
+SELECT * FROM TV_user;
