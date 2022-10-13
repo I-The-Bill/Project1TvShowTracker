@@ -94,11 +94,11 @@ try {
 			String status = "";
 			switch(x) {
 				case 1:
-					status = "not complete";
+					status = "complete";
 				case 2:
 					status = "in-process";
 				case 3:
-					status = "complete";
+					status = "not complete";
 				default: 
 					System.out.println("Please select an option between 1 and 3.");
 					break;
