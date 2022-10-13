@@ -33,26 +33,17 @@ SELECT * FROM TV_show;
 INSERT INTO 
 	Category(category_id, category_name)
 VALUES
-	(null,'Anime'),
-	(null,'Anime'),
-	(null,'Sci-Fi'),
-	(null,'Sci-Fi'),
-	(null,'Reality'),
-	(null,'Thriller'),
-	(null,'Crime'),
-	(null,'Drama'),
-	(null,'Drama'),
-	(null,'Drama'),
-	(null,'Action'),
-	(null,'Tragedy'),
-	(null,'Mystery'),
-	(null,'Drama'),
-	(null,'Drama'),
-	(null,'sitcom'),
-	(null,'Drama'),
-	(null,'Action fiction'),
-	(null,'Drama'),
-    (null,'anime');
+	(1,'Anime'),
+	(2,'Sci-Fi'),
+	(3,'Reality'),
+	(4,'Thriller'),
+	(5,'Crime'),
+	(6,'Drama'),
+	(7,'Action'),
+	(8,'Tragedy'),
+	(9,'Mystery'),
+	(10,'sitcom'),
+	(11,'Action fiction');
 
     -- SELECT FROM Category
 SELECT * FROM Category;
@@ -60,13 +51,14 @@ SELECT * FROM Category;
 
 -- INSERT INTO TABLE category_show
 INSERT INTO 
-	Category(show_id, category_id)
+	category_show(show_id, category_id)
 VALUES
-    (1,1), (2,2), (3,3),(4,4), (5,5),
-    (6,6), (7,7), (8,8), (9,9), (10,10),
-    (11,11), (12,12), (13,13), (14,14),
-    (15,15), (16,16), (17,17), (18,18),
-    (19,19), (20,20);
+    (1,1), (2,1), (3,2),(4,2), (5,3),
+    (6,4), (7,5), (8,6), (9,6), (10,6),
+    (11,7), (12,8), (13,9), (14,6),
+    (15,6), (16,10), (17,6), (18,11),
+    (19,6), (20,1);
 
         -- SELECT FROM category_show
 SELECT * FROM category_show;
+
