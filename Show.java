@@ -13,38 +13,56 @@ public class Show {
 	}
 
 	public Show(int inID, String inName, int eC) {
-		this.id = inID;
-		this.name = inName;
-		this.episodeCount = eC;
+		this.setId(inID);
+		this.setName(inName);
+		this.setEc(eC);
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int inID) {
-		this.id = inID;
+	private void setId(int inID) 
+    {
+        if (inID >= 0)
+        {  
+            this.id = inID; 
+        }
+        else
+        {   
+            this.id = -1; 
+            System.out.println("There has been an error making setting the show ID");
+        }
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String inName) {
+	private void setName(String inName) {
 		this.name = name;
 	}
 
-	public int getPhone() {
-		return episodeCount;
+	public int getEc() {
+		return this.episodeCount;
 	}
 
-	public void setPhone(int eC) {
-		this.episodeCount = eC;
+	private void setEc(int eC) {
+		if (eC >= 0)
+        {  
+            this.episodeCount = eC; 
+        }
+        else
+        {   
+            this.episodeCount = -1; 
+            System.out.println("There has been an error making setting the epside Count");
+        }
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+    {
 		return ("Show: " + this.name +"\tShow Id: " + this.id + "\tEpisode Count: " + episodeCount);
-    	}
+    }
 
 }
