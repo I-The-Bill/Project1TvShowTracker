@@ -68,9 +68,15 @@ SELECT * FROM category_show;
 	TV_user(user_id, user_name, user_password)
 VALUES
     (NULL, 'john', '12345'),
-    (NULL, 'allen', '12345'),
-    (NULL, 'amie', '12345'),
-    (NULL, 'a1li', '12345');
+    (NULL, 'allen', '1234'),
+    (NULL, 'amie', '123'),
+    (NULL, 'a1li', '12'),
+    (NULL, 'DJ', '112'),
+    (NULL, 'Doe', '132'),
+    (NULL, 'Jane', '122'),
+    (NULL, 'JJ', '132'),
+    (NULL, 'Bill', '132'),
+    (NULL, 'Mansour', '132');
 
             -- SELECT FROM TV_user
 SELECT * FROM TV_user;
@@ -89,9 +95,9 @@ VALUES
 	INSERT INTO 
 	Watch_instance(instance_id, user_id, show_id, status_id)
 VALUES
- (NULL, 5, 1, 1),
- (NULL, 6, 16, 2),
- (NULL, 7, 8, 1),
- (NULL, 8, 20, 3);
+ (NULL, 1, 1, 1),
+ (NULL, 2, 16, 2),
+ (NULL, 3, 8, 1),
+ (NULL, 4, 20, 3);
 
 SELECT * FROM Watch_instance;
