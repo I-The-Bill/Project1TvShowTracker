@@ -1,11 +1,9 @@
-<<<<<<< HEAD:src/TvTracker/TvTrackerDriver.java
 package TvTracker;
-=======
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
 
->>>>>>> 0647811d0e9082acd565772fa9b6c3b6e0a08919:TvTrackerDriver.java
 public class TvTrackerDriver
 {
 	public static void main(String[] args)
