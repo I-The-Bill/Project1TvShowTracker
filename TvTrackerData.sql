@@ -74,3 +74,13 @@ VALUES
 
             -- SELECT FROM TV_user
 SELECT * FROM TV_user;
+
+
+
+-- INSERT INTO TV_status
+	INSERT INTO 
+	TV_status(status_id, status_name)
+VALUES
+ (NULL, 'completed'),
+ (NULL, 'in progress'),
+ (NULL, 'Not Completed');
