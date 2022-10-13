@@ -6,6 +6,9 @@ public class TvTrackerDriver
 {
 	public static void main(String[] args)
 	{
+		/*	Setup
+		 * 
+		 */
 		Scanner input = new Scanner(System.in);
 		System.out.println("\n\n\n\n\n\n___________________________" 
 								  +  "\n|                         |"
@@ -16,22 +19,28 @@ public class TvTrackerDriver
 		boolean entryStatus = false;
 		//TvTrackerDAO tvSql = new TvTrackerDAO();
 
-		/*making sure a username is entered */
+		/* making sure a username is entered 
+		 * 
+		*/
 		while (username.equalsIgnoreCase(""))
 		{
 			try 
 			{
 				username = input.nextLine();
-			} 	catch (Exception e) {
-				System.out.println("Please enter a username");
+			} 	
+			catch (Exception e) 
+			{
+				System.out.println("__Please enter a username__\n");
 			}
 		}
-		//login process. Checks if username exist then proceeds to get password for login
+		/*login process. 
+		 * Should check username again database to see if user name exist and if it does move to attempting login with password
+		*/
 		try 
 		{
 			//if (tvSql.usernameExist(username)==true)
 			{
-				System.out.println("Welcome");
+				System.out.println("\n\nWelcome " + username);
 				//if (password matchs Users row)
 				{
 					entryStatus = true;
@@ -43,7 +52,8 @@ public class TvTrackerDriver
 			e.printStackTrace();
 		}
 		
-		 
+		Show x = new Show();
+		System.out.println(x.toString());
 		
 
 	}
