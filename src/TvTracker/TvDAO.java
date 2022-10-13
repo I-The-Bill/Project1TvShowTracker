@@ -3,7 +3,12 @@ package TvTracker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
+//import TvTracker.Show;
 
 public class TvDAO implements TvTrackerDaoInterface{
 	
@@ -64,25 +69,91 @@ try {
 
 	@Override
 	public Show getShow(String showTitle) {
-		// TODO Auto-generated method stub
+		
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show while show_name = ?");
+			pstmt.setString(1, showTitle);
+			
+			ResultSet rs = pstmt.executeQuery();
+			rs.first();
+			int id = rs.getInt("show_id");
+			String name = rs.getString("show_name");
+			int episodeCount = rs.getInt("episodeCount");
+			Show show = new Show(id, name, episodeCount);
+			return show;
+		} catch (SQLException e) {
+			System.out.println("Show with title = " + showTitle + " not found.");
+		}
 		return null;
 	}
 
 	@Override
 	public void setStatus(int x) {
-		// TODO Auto-generated method stub
 		
+		try {
+			String status = "";
+			switch(x) {
+				case 1:
+					status = "complete";
+				case 2:
+					status = "in-process";
+				case 3:
+					status = "not complete";
+				default: 
+					System.out.println("Please select an option between 1 and 3.");
+					break;
+			}
+			PreparedStatement pstmt = connection.prepareStatement("update tv_status set status_name = ? "
+					+ "where status_id = ?");
+			pstmt.setString(1, status);
+			pstmt.setInt(2, x);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
 	}
 
 	@Override
 	public String getStatus(String showTitle) {
-		// TODO Auto-generated method stub
+		
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_status while status_name = ?");
+			pstmt.setString(1, showTitle);
+			
+			ResultSet rs = pstmt.executeQuery();
+			rs.first();
+			String status = rs.getString("status_name");
+			return status;
+		} catch (SQLException e) {
+			System.out.println("Show with title = " + showTitle + " not found.");
+		}
 		return null;
 	}
 
 	@Override
 	public List<Show> getAllStatus() {
-		// TODO Auto-generated method stub
+		
+		try {
+			Statement stmt;
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("Select * from tv_show");
+			List<Show> showList = new ArrayList<Show>();
+			
+			while(rs.next()) {
+				int id = rs.getInt("show_id");
+				String name = rs.getString("show_name");
+				int episodeCount = rs.getInt("episodeCount");
+				
+				Show show = new Show(id, name, episodeCount);
+				showList.add(show);
+			}
+			
+			return showList;
+			
+		} catch (SQLException e) {
+			System.out.println("Could not retrieve list of shows from database");
+		}
+		
 		return null;
 	}
 	
