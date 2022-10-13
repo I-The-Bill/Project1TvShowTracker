@@ -5,7 +5,7 @@ use TvTracker;
 create table TV_show
 (
 	show_id int primary key auto_increment,
-    show_name varchar(30) not null unique,
+    show_name varchar(50) not null unique,
     episode_count int
 );
 insert into TV_show values(null, 'Bleach', '366');
