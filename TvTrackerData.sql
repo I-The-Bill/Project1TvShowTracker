@@ -117,3 +117,4 @@ VALUES
   (NULL, 40, 19, 3);
 
 SELECT * FROM Watch_instance;
+SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_instance.show_id;
