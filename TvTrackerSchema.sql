@@ -8,12 +8,26 @@ create table TV_show
     show_name varchar(30) not null unique,
     episode_count int
 );
+insert into TV_show values(null, 'Bleach', '366');
+insert into TV_show values(null, 'Soul Eater', '51');
+insert into TV_show values(null, 'Star Wars Andor', '6');
+
+#select * from TV_show;
 
 create table Category
 (
 	category_id int primary key,
     category_name varchar(50) not null unique
 );
+create table category_show
+(
+	show_id int primary key,
+    foreign key (show_id) references TV_show(show_id),
+    category_id int,
+    foreign key (category_id) references Category(category_id)
+    );
+
+
 
 create table TV_user
 (
