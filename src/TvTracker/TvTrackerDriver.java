@@ -8,9 +8,7 @@ public class TvTrackerDriver
 {
 	public static void main(String[] args)
 	{
-		/*	Setup
-		 * 
-		 */
+		// SetUp
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n"
@@ -67,34 +65,25 @@ public class TvTrackerDriver
 		*/
 		try 
 		{
-//			if (tvSql.usernameExist(username)==true)
-//			{
-//				System.out.println("\n\nWelcome " + username +"\n");
-				if (tvSql.login(username, password)==true)
-				{
-					entryStatus = true;
-				}
-//			}
+			if (tvSql.login(username, password)==true) {
+				entryStatus = true;
+			}
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		
-
-//		for(Show shows : tvSql.getAllStatus()) {
-//			System.out.println(shows);
-//		}
 		
 		boolean active = true;
 		while (active == true)
 		{
 			Show x = new Show();
-//			System.out.println("\nWhat would you like to do?\n"
-//							+"\n1. Check the status of a single show"
-//							+"\n2. check the status of all my shows"
-//							+"\n3. Update the status of a show"
-//							+"\nPress 9 to Quit");
+			System.out.println("\nWhat would you like to do?\n"
+							+"\n1. Check the status of a single show"
+							+"\n2. check the status of all my shows"
+							+"\n3. Update the status of a show"
+							+"\nPress 9 to Quit");
 
 
 			int toDo = input.nextInt();
@@ -106,9 +95,9 @@ public class TvTrackerDriver
 				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
-						
+						showName = input1.nextLine();
 						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
-						active=false;
+//						active=false;
 						break;
 					
 					case 2:
@@ -124,7 +113,7 @@ public class TvTrackerDriver
 						System.out.println("What status would you like to set for " + showName 
 								+ "\n1. Complete\n2. In Progress\n3. Complete");
 						status = input1.nextInt();
-						tvSql.setStatus(showName,status,username);
+						tvSql.setStatus(status,showName,username);
 						System.out.println(showName + "\'s status has successfully been updated "
 								+ "to " + tvSql.getStatus(showName, username));
 						break;
@@ -148,9 +137,6 @@ public class TvTrackerDriver
 				e.printStackTrace();
 			}
 		}
-		
-
-		
 
 	}
 }

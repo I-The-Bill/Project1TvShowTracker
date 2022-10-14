@@ -88,8 +88,7 @@ try {
 		return null;
 	}
 	
-	@Override
-	public int getUserId(String username) {
+	private int getUserId(String username) {
 		
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
@@ -101,62 +100,63 @@ try {
 			return id;
 			}
 		} catch (SQLException e) {
-			System.out.println("User: = " + username + " not found.");
+			System.out.println("User " + username + " not found.");
+		}
+		return -1;
+	}
+	
+	private int getShowId(String showTitle) {
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select show_id from TV_show where show_name = ?");
+			pstmt.setString(1, showTitle);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+			int id = rs.getInt("show_id");
+			return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("Show " + showTitle + " not found.");
 		}
 		return -1;
 	}
 
 	@Override
-	public void setStatus(String showTitle, int x, String username) {
+	public void setStatus(int x, String showTitle, String username) {
 		
 		try {
-			String status = "";
-			switch(x) {
-				case 1:
-					status = "complete";
-					break;
-				case 2:
-					status = "in-process";
-					break;
-				case 3:
-					status = "not complete";
-					break;
-				default: 
-					System.out.println("Please select an option between 1 and 3.");
-					break;
-			}
-			PreparedStatement pstmt = connection.prepareStatement("update tv_status set status_name = ? "
-					+ "inner join watch_instance on tv_status.status_id = watch_instance.status_id "
-					+ "inner join tv_show on watch_instance.show_id = tv_show.show_id "
-					+ "where show_name = ? && user_id = ? && status_id = ?");
-			pstmt.setString(1, status);
-			pstmt.setInt(2, x);
+			PreparedStatement pstmt = connection.prepareStatement("update watch_instance set watch_instance.status_id = ? where watch_instance.show_id = ? && watch_instance.user_id = ?");
+			pstmt.setInt(1, x);
+			pstmt.setInt(2, getShowId(showTitle));
+			pstmt.setInt(3, getUserId(username));
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Can not complete request. Soory:)");
 		}
 				
 	}
 
+
 	@Override
 	public String getStatus(String showTitle, String Username) {
-		//System.out.println("asdfasdfasf"+showTitle);
 		try 
 		{
-			//PreparedStatement pstmt2 = connection.prepareStatement("SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id WHERE show_name= ?");
-			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id inner join TV_user on TV_user.user_id = Watch_instance.user_id  WHERE show_name= ? && Watch_instance.user_id = ?");
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM TV_status "
+					+ "INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id "
+					+ "INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id "
+					+ "inner join TV_user on TV_user.user_id = Watch_instance.user_id  "
+					+ "WHERE show_name= ? && Watch_instance.user_id = ?");
 			pstmt.setString(1, showTitle);
 			pstmt.setInt(2, getUserId(Username));
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) 
 			{
 				String status = rs.getString("status_name");
-				System.out.println("LOLLYGAGIN" + status);
 				return status;
 			}
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}
 		return null;
