@@ -17,7 +17,8 @@ public class TvDAO implements TvTrackerDaoInterface{
 	public boolean usernameExist(String username) {
 		try {
 			
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_user where user_id = ?");
+
+			PreparedStatement pstmt = connection.prepareStatement("Select user_name from tv_user while user_id = ?");
 			pstmt.setString(1, username);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -35,15 +36,15 @@ public class TvDAO implements TvTrackerDaoInterface{
 
 	@Override
 	public boolean login(String username, String password) {
-try {
-			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ?");
+		try {
+
+			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
 			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
 			pstmt1.setString(1, username);
 			pstmt2.setString(1, password);
 			
 			ResultSet rs1 = pstmt1.executeQuery();
 			ResultSet rs2 = pstmt2.executeQuery();
-			
 
 			boolean exists1 = rs1.next();
 			boolean exists2 = rs2.next();
@@ -72,14 +73,14 @@ try {
 	public Show getShow(String showTitle) {
 		
 		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show where show_name = ?");
+			PreparedStatement pstmt = connection.prepareStatement("Select * from TV_show where show_name = ?");
 			pstmt.setString(1, showTitle);
 			
 			ResultSet rs = pstmt.executeQuery();
 			rs.first();
 			int id = rs.getInt("show_id");
 			String name = rs.getString("show_name");
-			int episodeCount = rs.getInt("episodeCount");
+			int episodeCount = rs.getInt("episode_count");
 			Show show = new Show(id, name, episodeCount);
 			return show;
 		} catch (SQLException e) {
@@ -88,8 +89,8 @@ try {
 		return null;
 	}
 	
+	
 	private int getUserId(String username) {
-		
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
 			pstmt.setString(1, username);
@@ -104,6 +105,7 @@ try {
 		}
 		return -1;
 	}
+	
 	
 	private int getShowId(String showTitle) {
 		try {
@@ -124,7 +126,9 @@ try {
 	public void setStatus(int x, String showTitle, String username) {
 		
 		try {
-			PreparedStatement pstmt = connection.prepareStatement("update watch_instance set watch_instance.status_id = ? where watch_instance.show_id = ? && watch_instance.user_id = ?");
+
+			PreparedStatement pstmt= connection.prepareStatement("update watch_instance set watch_instance.status_id = ? "
+					+ "where watch_instance.show_id = ? && watch_instance.user_id = ?");
 			pstmt.setInt(1, x);
 			pstmt.setInt(2, getShowId(showTitle));
 			pstmt.setInt(3, getUserId(username));
@@ -149,8 +153,7 @@ try {
 			pstmt.setString(1, showTitle);
 			pstmt.setInt(2, getUserId(Username));
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()) {
 				String status = rs.getString("status_name");
 				return status;
 			}
@@ -162,6 +165,8 @@ try {
 		return null;
 	}
 
+	
+	//done
 	@Override
 	public List<Show> getAllStatus() {
 		
@@ -171,12 +176,12 @@ try {
 			ResultSet rs = stmt.executeQuery("Select * from tv_show");
 			List<Show> showList = new ArrayList<Show>();
 			
-			rs.first();
+			//rs.first();
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
-				int episodeCount = rs.getInt("episodeCount");
+				int episodeCount = rs.getInt("episode_count");
 				
 				Show show = new Show(id, name, episodeCount);
 				showList.add(show);

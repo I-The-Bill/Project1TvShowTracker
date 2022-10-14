@@ -1,42 +1,43 @@
 package TvTracker;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
-
-public class TvTrackerDriver
-{
+public class TvTrackerDriver {
 	public static void main(String[] args)
 	{
-		// SetUp
+		//SetUp
+
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n"
-								+ "         _           _              \n"
-								+ "        / \\**       / \\**         \n"
-								+ "       /   \\**     /   \\**        \n"
-								+ "      / /*\\ \\**   / /*\\ \\**     \n"
-								+ "     / /** \\ \\** / /** \\ \\**    \n"
-								+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
-								+ "   / /**     \\___/**     \\ \\**   \n"
-								+ "  / /**        ****       \\ \\**   \n"
-								+ " | |**                    |  |**    \n"
-								+ " | |*_____________________|  |**    \n"
-								+ " |                           |**    \n"
-								+ " |  TV SHOW STATUS TRACKER   |**    \n"
-								+ " |  _______________________  |**    \n"
-								+ " | |**                     | |**    \n"
-								+ " | |**                     | |**    \n"
-								+ "  \\ \\*        ___         / /**   \n"
-								+ "   \\ \\*      / _ \\       / /**   \n"
-								+ "    \\ \\*    / /*\\ \\     / /**   \n"
-								+ "     \\ \\*  / /** \\ \\   / /**    \n"
-								+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
-								+ "       \\   /**     \\   /**        \n"
-								+ "        \\_/**       \\_/**         \n" 
-								+ "          **          **            \n"
-								+ "_________________________________   \n"
-							    + "\n\n                                \n");
+				+ "         _           _              \n"
+				+ "        / \\**       / \\**         \n"
+				+ "       /   \\**     /   \\**        \n"
+				+ "      / /*\\ \\**   / /*\\ \\**     \n"
+				+ "     / /** \\ \\** / /** \\ \\**    \n"
+				+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
+				+ "   / /**     \\___/**     \\ \\**   \n"
+				+ "  / /**        ****       \\ \\**   \n"
+				+ " | |**                    |  |**    \n"
+				+ " | |*_____________________|  |**    \n"
+				+ " |                           |**    \n"
+				+ " |  TV SHOW STATUS TRACKER   |**    \n"
+				+ " |  _______________________  |**    \n"
+				+ " | |**                     | |**    \n"
+				+ " | |**                     | |**    \n"
+				+ "  \\ \\*        ___         / /**   \n"
+				+ "   \\ \\*      / _ \\       / /**   \n"
+				+ "    \\ \\*    / /*\\ \\     / /**   \n"
+				+ "     \\ \\*  / /** \\ \\   / /**    \n"
+				+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
+				+ "       \\   /**     \\   /**        \n"
+				+ "        \\_/**       \\_/**         \n" 
+				+ "          **          **            \n"
+				+ "_________________________________   \n"
+			    + "\n\n                                \n");
 		String username = "John";
 		String password = "12345";
 		boolean entryStatus = false;
@@ -53,7 +54,7 @@ public class TvTrackerDriver
 				System.out.println("Please enter your user name:");
 				username = input.nextLine();
 				System.out.println("Please enter your password:");
-				password = input.nextLine();
+				password = input1.nextLine();
 			} 	
 			catch (Exception e) 
 			{
@@ -86,18 +87,17 @@ public class TvTrackerDriver
 							+"\nPress 9 to Quit");
 
 
-			int toDo = input.nextInt();
+			int toDo = input1.nextInt();
 			String showName = "";
 			int status = 0;
 			try 
 			{
-//				toDo = 1;
+
 				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
-						showName = input1.nextLine();
+						showName = input.nextLine();
 						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
-//						active=false;
 						break;
 					
 					case 2:
@@ -109,7 +109,7 @@ public class TvTrackerDriver
 						
 					case 3:
 						System.out.println("What show did you want to update?");
-						showName = input1.nextLine();
+						showName = input.nextLine();
 						System.out.println("What status would you like to set for " + showName 
 								+ "\n1. Complete\n2. In Progress\n3. Complete");
 						status = input1.nextInt();
@@ -118,11 +118,11 @@ public class TvTrackerDriver
 								+ "to " + tvSql.getStatus(showName, username));
 						break;
 					
+
 					case 9:
-						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
+						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
 						active = false;
 						break;
-					
 					default:
 						System.out.println("\nPlease enter a vaild option\n");
 						break;
@@ -138,6 +138,10 @@ public class TvTrackerDriver
 			}
 		}
 
+
 	}
 }
+
+
+
 

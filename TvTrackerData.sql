@@ -84,16 +84,6 @@ SELECT * FROM TV_user;
 -- drop table TV_user;
 
 
--- INSERT INTO TV_status
-INSERT INTO 
-	TV_status(status_id, status_name)
-VALUES
- (NULL, 'completed'),
- (NULL, 'in progress'),
- (NULL, 'Not Completed');
-
-SELECT * FROM TV_status;
- -- INSERT INTO Watch_instance
 
 INSERT INTO 
 	Watch_instance(instance_id, user_id, show_id, status_id)
@@ -119,9 +109,6 @@ VALUES
  (NULL, 9, 14, 3),
  (NULL, 10, 19, 3);
 
-insert watch_instance(instance_id, user_id, show_id, status_id)
- value(NULL, 10, 1, 3);
-
 SELECT * FROM Watch_instance;
 -- select * from tv_show;
 SELECT * FROM TV_show inner join watch_instance on tv_show.show_id = watch_instance.show_id;
@@ -134,6 +121,7 @@ select * from tv_user;
 select * from tv_show;
 select * from tv_status;
 SELECT * FROM Watch_instance;
+
 select user_id from tv_user where user_name = 'Bill';
 
 SELECT * FROM Watch_instance;
@@ -149,3 +137,4 @@ update watch_instance set watch_instance.status_id = 3
 -- 	inner join TV_user on TV_user.user_id = Watch_instance.user_id  
 --     
 -- 	WHERE show_name= 'Bleach' && Watch_instance.user_id = 1;
+
