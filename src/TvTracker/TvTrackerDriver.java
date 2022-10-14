@@ -85,13 +85,14 @@ public class TvTrackerDriver {
 							+"\n3. Update the status of a show"
 							+"\nPress 9 to Quit");
 
-
-			int toDo = input1.nextInt();
+			
+			//int toDo = -1;
 			String showName = "";
 			int status = 0;
 			try 
 			{
-
+				int toDo = input1.nextInt();
+				//ainput1.nextInt();
 				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
@@ -128,6 +129,7 @@ public class TvTrackerDriver {
 			catch (InputMismatchException e) 
 			{
 				System.out.println("\nPlease enter a vaild option\n");
+				input1.next();
 			}
 			catch(Exception e)
 			{
