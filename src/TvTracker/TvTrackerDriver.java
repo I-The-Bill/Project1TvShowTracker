@@ -54,9 +54,9 @@ public class TvTrackerDriver {
 			try 
 			{
 				System.out.println("Please enter your user name:");
-				username = input.nextLine();
+				//username = input.nextLine();
 				System.out.println("Please enter your password:");
-				password = input.nextLine();
+				//password = input.nextLine();
 			} 	
 			catch (Exception e) 
 			{
@@ -88,35 +88,36 @@ public class TvTrackerDriver {
 //		}
 		
 		boolean active = true;
-		while (active == true)
+		while (!active == false)
 		{
 			Show x = new Show();
-//			System.out.println("\nWhat would you like to do?\n"
-//							+"\n1. Check the status of a single show"
-//							+"\n2. check the status of all my shows"
-//							+"\n3. Update the status of a show"
-//							+"\nPress 9 to Quit");
+			System.out.println("\nWhat would you like to do?\n"
+							+"\n1. Check the status of a single show"
+							+"\n2. check the status of all my shows"
+							+"\n3. Update the status of a show"
+							+"\nPress 9 to Quit");
 
 
-			int toDo = input.nextInt();
+			String toDo = input.nextLine();
+			int toDo2 = Integer.parseInt(toDo);
 			String showName = "";
 			int status = 0;
 			try 
 			{
 //				toDo = 1;
-				switch(toDo) {
+				switch(toDo2) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
-						
-						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
-						active=false;
+						String theShow = input.nextLine();
+						//System.out.println(tvSql.getUserId(username));
+						System.out.println("The show "+ theShow + "\'s Status is: " + tvSql.getStatus(theShow, username));
 						break;
 					
 					case 2:
 						for(Show shows : tvSql.getAllStatus()) {
 							System.out.println(shows);
 						}
-						active=false;
+						
 						break;
 						
 					case 3:
@@ -133,12 +134,12 @@ public class TvTrackerDriver {
 
 					case 9:
 						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
-						active = false;
+						
 						break;
 					default:
 						System.out.println("\nPlease enter a vaild option\n");
 						break;
-				}
+				}active = false;
 			} 
 			catch (InputMismatchException e) 
 			{
