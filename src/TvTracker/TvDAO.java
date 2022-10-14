@@ -72,14 +72,14 @@ try {
 	public Show getShow(String showTitle) {
 		
 		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show while show_name = ?");
+			PreparedStatement pstmt = connection.prepareStatement("Select * from TV_show where show_name = ?");
 			pstmt.setString(1, showTitle);
 			
 			ResultSet rs = pstmt.executeQuery();
 			rs.first();
 			int id = rs.getInt("show_id");
 			String name = rs.getString("show_name");
-			int episodeCount = rs.getInt("episodeCount");
+			int episodeCount = rs.getInt("episode_count");
 			Show show = new Show(id, name, episodeCount);
 			return show;
 		} catch (SQLException e) {
@@ -105,9 +105,10 @@ try {
 					break;
 			}
 			PreparedStatement pstmt = connection.prepareStatement("update tv_status set status_name = ? "
-					+ "where status_id = ?");
+					+ "where status_id = ?"); // need to be updated
 			pstmt.setString(1, status);
 			pstmt.setInt(2, x);
+			System.out.println();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -118,16 +119,25 @@ try {
 	public String getStatus(String showTitle) {
 		
 		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_status while status_name = ?");
+			PreparedStatement pstmt = connection.prepareStatement
+					("SELECT * FROM TV_status "
+							+ "INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id "
+							+ "INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id "
+							+ "WHERE show_name= '?'");
+			
 			pstmt.setString(1, showTitle);
 			
 			ResultSet rs = pstmt.executeQuery();
 			rs.first();
+			
 			String status = rs.getString("status_name");
+			
 			return status;
+			
 		} catch (SQLException e) {
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}
+		
 		return null;
 	}
 
@@ -140,12 +150,12 @@ try {
 			ResultSet rs = stmt.executeQuery("Select * from tv_show");
 			List<Show> showList = new ArrayList<Show>();
 			
-			rs.first();
+			//rs.first();
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
-				int episodeCount = rs.getInt("episodeCount");
+				int episodeCount = rs.getInt("episode_count");
 				
 				Show show = new Show(id, name, episodeCount);
 				showList.add(show);

@@ -84,38 +84,39 @@ SELECT * FROM TV_user;
 -- drop table TV_user;
 
 
-INSERT INTO TV_status
-	INSERT INTO 
-	TV_status(status_id, status_name)
+INSERT INTO TV_status(status_id, status_name)
 VALUES
  (NULL, 'completed'),
  (NULL, 'in progress'),
  (NULL, 'Not Completed');
-
+select * from TV_status;
  -- INSERT INTO Watch_instance
 	INSERT INTO 
 	Watch_instance(instance_id, user_id, show_id, status_id)
 VALUES
- (NULL, 31, 1, 1),
- (NULL, 32, 16, 2),
- (NULL, 33, 8, 1),
- (NULL, 34, 20, 3),
- (NULL, 35, 2, 2),
- (NULL, 36, 3, 3),
- (NULL, 37, 1, 2),
- (NULL, 38, 4, 1),
-  (NULL, 39, 6, 2),
-  (NULL, 40, 7, 1),
-  (NULL, 31, 18, 1),
-  (NULL, 32, 9, 2),
-  (NULL, 33, 11, 1),
-  (NULL, 34, 12, 3),
-  (NULL, 35, 13, 3),
-  (NULL, 36, 15, 1),
-  (NULL, 37, 10, 2),
-  (NULL, 38, 17, 1),
-  (NULL, 39, 14, 3),
-  (NULL, 40, 19, 3);
+ (NULL, 1, 1, 1),
+ (NULL, 1, 16, 2),
+ (NULL, 4, 8, 1),
+ (NULL, 8, 20, 3),
+ (NULL, 3, 2, 2),
+ (NULL, 4, 7, 3),
+ (NULL, 6,1, 2),
+ (NULL, 4,4, 1),
+  (NULL, 4, 6, 2),
+  (NULL, 1, 7, 1),
+  (NULL, 1, 18, 1),
+  (NULL, 3, 9, 2),
+  (NULL, 3, 11, 1),
+  (NULL, 4, 12, 3),
+  (NULL, 5, 13, 3),
+  (NULL, 6, 15, 1),
+  (NULL, 3, 10, 2),
+  (NULL, 3, 17, 1),
+  (NULL, 3, 14, 3),
+  (NULL, 4, 19, 3);
 
 SELECT * FROM Watch_instance;
 SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_instance.show_id;
+SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id;
+#getStatus
+SELECT status_name FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id where show_name= 'Dahmer';
