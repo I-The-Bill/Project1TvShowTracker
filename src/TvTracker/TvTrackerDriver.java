@@ -13,48 +13,50 @@ public class TvTrackerDriver {
 		 */
 		//TvTrackerDaoInterface showDAO = new TvDAO();
 		Scanner input = new Scanner(System.in);
-		Scanner input2 = new Scanner(System.in);
-
-		System.out.println("\n\n\n\n__________________________________   \n"
-								  + "         _           _              \n"
-								  + "        / \\**       / \\**         \n"
-								  + "       /   \\**     /   \\**        \n"
-								  + "      / /*\\ \\**   / /*\\ \\**     \n"
-								  + "     / /** \\ \\** / /** \\ \\**    \n"
-								  + "    / /**   \\ \\_/ /**   \\ \\**   \n"
-								  + "   / /**     \\___/**     \\ \\**   \n"
-								  + "  / /**        ****       \\ \\**   \n"
-								  + " | |**                    |  |**    \n"
-								  + " | |*_____________________|  |**    \n"
-								  + " |                           |**    \n"
-								  + " |  TV SHOW STATUS TRACKER   |**    \n"
-								  + " |  _______________________  |**    \n"
-								  + " | |**                     | |**    \n"
-								  + " | |**                     | |**    \n"
-								  + "  \\ \\*        ___         / /**   \n"
-								  + "   \\ \\*      / _ \\       / /**   \n"
-								  + "    \\ \\*    / /*\\ \\     / /**   \n"
-								  + "     \\ \\*  / /** \\ \\   / /**    \n"
-								  + "      \\ \\*/ /**   \\ \\_/ /**     \n"
-								  + "       \\   /**     \\   /**        \n"
-								  + "        \\_/**       \\_/**         \n" 
-								  + "          **          **            \n"
-								  + "_________________________________   \n"
-							      + "\n\n\nPlease enter your user name   \n");
-		String username = "Bill"; 
-		String password = "132";
+		Scanner input1 = new Scanner(System.in);
+		System.out.println("\n\n__________________________________   \n"
+								+ "         _           _              \n"
+								+ "        / \\**       / \\**         \n"
+								+ "       /   \\**     /   \\**        \n"
+								+ "      / /*\\ \\**   / /*\\ \\**     \n"
+								+ "     / /** \\ \\** / /** \\ \\**    \n"
+								+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
+								+ "   / /**     \\___/**     \\ \\**   \n"
+								+ "  / /**        ****       \\ \\**   \n"
+								+ " | |**                    |  |**    \n"
+								+ " | |*_____________________|  |**    \n"
+								+ " |                           |**    \n"
+								+ " |  TV SHOW STATUS TRACKER   |**    \n"
+								+ " |  _______________________  |**    \n"
+								+ " | |**                     | |**    \n"
+								+ " | |**                     | |**    \n"
+								+ "  \\ \\*        ___         / /**   \n"
+								+ "   \\ \\*      / _ \\       / /**   \n"
+								+ "    \\ \\*    / /*\\ \\     / /**   \n"
+								+ "     \\ \\*  / /** \\ \\   / /**    \n"
+								+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
+								+ "       \\   /**     \\   /**        \n"
+								+ "        \\_/**       \\_/**         \n" 
+								+ "          **          **            \n"
+								+ "_________________________________   \n"
+							    + "\n\n                                \n");
+		String username = "John";
+		String password = "12345";
 		boolean entryStatus = false;
-		TvTrackerDaoInterface tvSql = new TvDAO();
+		TvDAO tvSql = new TvDAO();
+		Show show = new Show();
+
 		/* Making sure a username is entered 
 		 * 
 		*/
 		while (username.equalsIgnoreCase(""))
 		{
 			try 
-			{	
-				//	username = input.nextLine();
-			//___________ Needs to be undone
-
+			{
+				System.out.println("Please enter your user name:");
+				username = input.nextLine();
+				System.out.println("Please enter your password:");
+				password = input.nextLine();
 			} 	
 			catch (Exception e) 
 			{
@@ -79,49 +81,56 @@ public class TvTrackerDriver {
 		{
 			e.printStackTrace();
 		}
+		
+
+//		for(Show shows : tvSql.getAllStatus()) {
+//			System.out.println(shows);
+//		}
+		
 		boolean active = true;
 		while (active == true)
 		{
 			Show x = new Show();
-			System.out.println("What would you like to do?\n"
-							+"\n1. Check the status of a single show"
-							+"\n2. check the status of all the shows"
-							+"\n3. Update the status of a show"
-							+"\n4. Get detailed information of a show"
-							+"\nPress 9 to Quit");
+//			System.out.println("\nWhat would you like to do?\n"
+//							+"\n1. Check the status of a single show"
+//							+"\n2. check the status of all my shows"
+//							+"\n3. Update the status of a show"
+//							+"\nPress 9 to Quit");
 
 
 			int toDo = input.nextInt();
-			
-			try{
+			String showName = "";
+			int status = 0;
+			try 
+			{
+//				toDo = 1;
 				switch(toDo) {
 					case 1:
+						System.out.println("Please enter the title of the show you want to check");
 						
-						System.out.println("\nPlease enter the show Title: ");
-						tvSql.getUserId(username);
-						String single = input2.nextLine();
-						if(!single.isEmpty()) {
-						System.out.println(tvSql.getStatus(single));
-						
-						}
-						
+						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
+						active=false;
 						break;
+					
 					case 2:
-						System.out.println("Loading all the shows");
-						for(Show show : tvSql.getAllStatus()) {
-							System.out.println(show);
-						}// while is stopping for the show print
+						for(Show shows : tvSql.getAllStatus()) {
+							System.out.println(shows);
+						}
+						active=false;
 						break;
+						
 					case 3:
-						System.out.println("\n3");
+						System.out.println("What show did you want to update?");
+						showName = input1.nextLine();
+						System.out.println("What status would you like to set for " + showName 
+								+ "\n1. Complete\n2. In Progress\n3. Complete");
+						status = input1.nextInt();
+						tvSql.setStatus(showName,status,username);
+						System.out.println(showName + "\'s status has successfully been updated "
+								+ "to " + tvSql.getStatus(showName, username));
 						break;
-					case 4:
-						System.out.println("\nPlease enter the show Title: ");
-						String single2 = input2.nextLine();
-						if(!single2.isEmpty()) {
-							System.out.println(tvSql.getShow(single2));
-							}
-						break;
+					
+
 					case 9:
 						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
 						active = false;
