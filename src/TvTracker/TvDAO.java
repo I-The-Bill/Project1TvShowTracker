@@ -17,7 +17,7 @@ public class TvDAO implements TvTrackerDaoInterface{
 	public boolean usernameExist(String username) {
 		try {
 			
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_user while user_id = ?");
+			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_user where user_id = ?");
 			pstmt.setString(1, username);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -34,29 +34,32 @@ public class TvDAO implements TvTrackerDaoInterface{
 	}
 
 	@Override
-	public boolean login(String username, String password) {
-try {
-			PreparedStatement pstmt1 = connection.prepareStatement("Select * from tv_user while user_name = ?");
-			PreparedStatement pstmt2 = connection.prepareStatement("Select * from tv_user while user_password = ?");
+	public boolean login(String username, String inPassword) {
+		try {
+			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ?");
+			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
 			pstmt1.setString(1, username);
-			pstmt2.setString(1, password);
-			
+			pstmt2.setString(1, inPassword);
+			//pstmt1.setString
 			ResultSet rs1 = pstmt1.executeQuery();
 			ResultSet rs2 = pstmt2.executeQuery();
 			
-			String name = rs1.getString("user_name");
+			//String name = rs1.getString("user_name");
+			//String password = rs1.getString("user_password");
 			boolean exists1 = rs1.next();
 			boolean exists2 = rs2.next();
 			 
 			if (exists1==true && exists2==true) {
-				System.out.printf("Welcome %s/n", name);
+				System.out.printf("Welcome %s\n", username);
 				return true;
 			}
-			else if (exists1==true) {
+			else if (exists1==true) 
+			{
 				System.out.println("Password entered is wrong");
 				return false;
 			} 
-			else if (exists2==true) {
+			else if (exists2==true) 
+			{
 				System.out.println("Cannot find this username");
 				return false;
 			}
@@ -72,7 +75,7 @@ try {
 	public Show getShow(String showTitle) {
 		
 		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show while show_name = ?");
+			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show where show_name = ?");
 			pstmt.setString(1, showTitle);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -86,6 +89,23 @@ try {
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}
 		return null;
+	}
+	
+	public int getUserId(String username) {
+		
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+			int id = rs.getInt("user_id");
+			
+			return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("User: = " + username + " not found.");
+		}
+		return -1;
 	}
 
 	@Override
@@ -115,17 +135,25 @@ try {
 	}
 
 	@Override
-	public String getStatus(String showTitle) {
-		
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_status while status_name = ?");
+	public String getStatus(String showTitle, String Username) {
+		//System.out.println("asdfasdfasf"+showTitle);
+		try 
+		{
+			//PreparedStatement pstmt2 = connection.prepareStatement("SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id WHERE show_name= ?");
+			PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id inner join TV_user on TV_user.user_id = Watch_instance.user_id  WHERE show_name= ? && Watch_instance.user_id = ?");
 			pstmt.setString(1, showTitle);
-			
+			pstmt.setInt(2, getUserId(Username));
 			ResultSet rs = pstmt.executeQuery();
-			rs.first();
-			String status = rs.getString("status_name");
-			return status;
-		} catch (SQLException e) {
+			while(rs.next()) 
+			{
+				String status = rs.getString("status_name");
+				System.out.println("LOLLYGAGIN" + status);
+				return status;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}
 		return null;
