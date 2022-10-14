@@ -13,27 +13,7 @@ public class TvDAO implements TvTrackerDaoInterface{
 	
 	private Connection connection = TvJDBC.getConnection();
 
-	@Override
-	public boolean usernameExist(String username) {
-		try {
-			
-
-			PreparedStatement pstmt = connection.prepareStatement("Select user_name from tv_user while user_id = ?");
-			pstmt.setString(1, username);
-			
-			ResultSet rs = pstmt.executeQuery();
-			boolean exists = rs.next();
-			 
-			if (exists==true) {
-				return true;
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("Cannot find this username");
-		return false;
-	}
-
+	
 	@Override
 	public boolean login(String username, String password) {
 		try {
@@ -67,26 +47,6 @@ public class TvDAO implements TvTrackerDaoInterface{
 		}
 		System.out.println("Username/password are incorrect");
 		return false;
-	}
-
-	@Override
-	public Show getShow(String showTitle) {
-		
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select * from TV_show where show_name = ?");
-			pstmt.setString(1, showTitle);
-			
-			ResultSet rs = pstmt.executeQuery();
-			rs.first();
-			int id = rs.getInt("show_id");
-			String name = rs.getString("show_name");
-			int episodeCount = rs.getInt("episode_count");
-			Show show = new Show(id, name, episodeCount);
-			return show;
-		} catch (SQLException e) {
-			System.out.println("Show with title = " + showTitle + " not found.");
-		}
-		return null;
 	}
 	
 	
@@ -165,35 +125,57 @@ public class TvDAO implements TvTrackerDaoInterface{
 		return null;
 	}
 
+	@Override
+	public Show getShow(String showTitle) {
+		
+//		try {
+//			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show "
+//					+ "inner join watch_instance on tv_show.show_id = watch_instance.show_id"
+//					+ "inner join tv_user on tv_user.user_id = watch_instance.user_id");
+//			pstmt.setString(1, showTitle);
+//			
+//			ResultSet rs = pstmt.executeQuery();
+//			rs.first();
+//			int id = rs.getInt("show_id");
+//			String name = rs.getString("show_name");
+//			int episodeCount = rs.getInt("episode_count");
+//		//	Show show = new Show(id, name, episodeCount);
+//			return Show;
+//		} catch (SQLException e) {
+//			System.out.println("Show with title = " + showTitle + " not found.");
+//		}
+		return null;
+	}
 	
 	//done
 	@Override
-	public List<Show> getAllStatus() {
-		
+	public void getAllStatus(String username) {
 		try {
-			Statement stmt;
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("Select * from tv_show");
-			List<Show> showList = new ArrayList<Show>();
+			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show "
+					+ "inner join watch_instance on tv_show.show_id = watch_instance.show_id "
+					+ "inner join tv_status on watch_instance.status_id = tv_status.status_id "
+					+ "inner join tv_user on tv_user.user_id = watch_instance.user_id "
+					+ "where tv_user.user_name = ?");
 			
-			//rs.first();
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery(); 
+			
+//			rs.first();
+			String showTitle = "";
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
 				int episodeCount = rs.getInt("episode_count");
+				String status = rs.getString("Status_name");
 				
 				Show show = new Show(id, name, episodeCount);
-				showList.add(show);
+				System.out.printf("Show:\t%-16s\tEpisode Count:\t%-4d\tStatus:\t%-7s\n",show.getName(),show.getEc(),status);
 			}
-			
-			return showList;
-			
+						
 		} catch (SQLException e) {
 			System.out.println("Could not retrieve list of shows from database");
 		}
-		
-		return null;
 	}
 	
 	

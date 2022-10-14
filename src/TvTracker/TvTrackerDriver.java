@@ -38,8 +38,8 @@ public class TvTrackerDriver {
 				+ "          **          **            \n"
 				+ "_________________________________   \n"
 			    + "\n\n                                \n");
-		String username = "John";
-		String password = "12345";
+		String username = "Bill";
+		String password = "1325";
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
 		Show show = new Show();
@@ -62,7 +62,6 @@ public class TvTrackerDriver {
 			}
 		}
 		/*login process. 
-		 * Should check username again database to see if user name exist and if it does move to attempting login with password
 		*/
 		try 
 		{
@@ -101,10 +100,8 @@ public class TvTrackerDriver {
 						break;
 					
 					case 2:
-						for(Show shows : tvSql.getAllStatus()) {
-							System.out.println(shows);
-						}
-						active=false;
+						System.out.println("\nYour history log:");
+						tvSql.getAllStatus(username);
 						break;
 						
 					case 3:
