@@ -1,4 +1,5 @@
 package TvTracker;
+
 public class Show {
 
 	// create attributes first then generate the constructor, getters/setters,
@@ -65,5 +66,6 @@ public class Show {
     {
 		return ("Show: " + this.name +"\tShow Id: " + this.id + "\tEpisode Count: " + episodeCount);
     }
+
 
 }

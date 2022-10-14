@@ -12,14 +12,36 @@ public class TvTrackerDriver
 		 * 
 		 */
 		Scanner input = new Scanner(System.in);
-		System.out.println("\n\n\n\n\n\n___________________________" 
-								  +  "\n|                         |"
-							      +  "\n| TV SHOW STATUS TRACKER  |"
-								  +  "\n|_________________________|"
-							      +  "\n\n\n\nPlease enter your user name");
+		System.out.println("\n\n\n\n__________________________________   \n"
+								  + "         _           _              \n"
+								  + "        / \\**       / \\**         \n"
+								  + "       /   \\**     /   \\**        \n"
+								  + "      / /*\\ \\**   / /*\\ \\**     \n"
+								  + "     / /** \\ \\** / /** \\ \\**    \n"
+								  + "    / /**   \\ \\_/ /**   \\ \\**   \n"
+								  + "   / /**     \\___/**     \\ \\**   \n"
+								  + "  / /**        ****       \\ \\**   \n"
+								  + " | |**                    |  |**    \n"
+								  + " | |*_____________________|  |**    \n"
+								  + " |                           |**    \n"
+								  + " |  TV SHOW STATUS TRACKER   |**    \n"
+								  + " |  _______________________  |**    \n"
+								  + " | |**                     | |**    \n"
+								  + " | |**                     | |**    \n"
+								  + "  \\ \\*        ___         / /**   \n"
+								  + "   \\ \\*      / _ \\       / /**   \n"
+								  + "    \\ \\*    / /*\\ \\     / /**   \n"
+								  + "     \\ \\*  / /** \\ \\   / /**    \n"
+								  + "      \\ \\*/ /**   \\ \\_/ /**     \n"
+								  + "       \\   /**     \\   /**        \n"
+								  + "        \\_/**       \\_/**         \n" 
+								  + "          **          **            \n"
+								  + "_________________________________   \n"
+							      + "\n\n\nPlease enter your user name   \n");
 		String username = "Bill";
+		String password = "1325";
 		boolean entryStatus = false;
-		//TvTrackerDAO tvSql = new TvTrackerDAO();
+		TvTrackerDaoInterface tvSql = new TvDAO();
 
 		/* Making sure a username is entered 
 		 * 
@@ -28,7 +50,8 @@ public class TvTrackerDriver
 		{
 			try 
 			{
-				// ____________username = input.nextLine();___________ Needs to be undone
+//				 ____________
+				 username = input.nextLine();//___________ Needs to be undone
 			} 	
 			catch (Exception e) 
 			{
@@ -40,14 +63,14 @@ public class TvTrackerDriver
 		*/
 		try 
 		{
-			//if (tvSql.usernameExist(username)==true)
-			{
-				System.out.println("\n\nWelcome " + username +"\n");
-				//if (password matchs Users row)
+//			if (tvSql.usernameExist(username)==true)
+//			{
+//				System.out.println("\n\nWelcome " + username +"\n");
+				if (tvSql.login(username, password)==true)
 				{
 					entryStatus = true;
 				}
-			}
+//			}
 		} 
 		catch (Exception e) 
 		{
@@ -56,7 +79,7 @@ public class TvTrackerDriver
 		boolean active = true;
 		while (active == true)
 		{
-			//Show x = new Show();
+			Show x = new Show();
 			System.out.println("What would you like to do?\n"
 							+"\n1. Check the status of a single show"
 							+"\n2. check the status of all my shows"
@@ -67,26 +90,23 @@ public class TvTrackerDriver
 			int toDo = input.nextInt();
 			try 
 			{
-				if (toDo == 1)
-				{
-					System.out.println("\n1");
-				}
-				else if (toDo == 2)
-				{
-					System.out.println("\n2");
-				}
-				else if (toDo == 3)
-				{
-					System.out.println("\n3");
-				}
-				else if (toDo == 9)
-				{
-					System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
-					active = false;
-				}
-				else
-				{
-					System.out.println("\nPlease enter a vaild option\n");
+				switch(toDo) {
+					case 1:
+						System.out.println("\n1");
+					
+					case 2:
+						System.out.println("\n2");
+					
+					case 3:
+						System.out.println("\n3");
+					
+					case 9:
+						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
+						active = false;
+					
+					default:
+						System.out.println("\nPlease enter a vaild option\n");
+					
 				}
 			} 
 			catch (InputMismatchException e) 
