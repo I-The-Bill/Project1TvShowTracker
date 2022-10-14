@@ -11,7 +11,22 @@ import java.util.List;
 public class TvDAO implements TvTrackerDaoInterface {
 
 	private Connection connection = TvJDBC.getConnection();
+	//done
+	@Override
+	public void register(String username, String password) {
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO  TV_user(user_id, user_name, user_password) VALUE(NULL, ?, ?)");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.executeUpdate();
 
+		} catch (SQLException e) {
+			System.out.println("Can not register request. Sorry :(");
+		}
+	}
+	
+	
+	//done
 	@Override
 	public boolean usernameExist(String username) {
 		try {
@@ -31,7 +46,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 		System.out.println("Cannot find this username");
 		return false;
 	}
-
+	//done
 	@Override
 	public boolean login(String username, String inPassword) {
 		try {
@@ -66,7 +81,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 		System.out.println("Username/password are incorrect");
 		return false;
 	}
-
+	//done
 	@Override
 	public Show getShow(String showTitle) {
 
@@ -86,7 +101,8 @@ public class TvDAO implements TvTrackerDaoInterface {
 		}
 		return null;
 	}
-
+	//done
+	@Override
 	public int getUserId(String username) {
 
 		try {
@@ -103,33 +119,43 @@ public class TvDAO implements TvTrackerDaoInterface {
 		}
 		return -1;
 	}
-
+	//done
+	@Override
+	public int getShowId(String showTitle) {
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select show_id from TV_show where show_name = ?");
+			pstmt.setString(1, showTitle);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+			int id = rs.getInt("show_id");
+			return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("Show " + showTitle + " not found.");
+		}
+		return -1;
+	}
+	//done
 	@Override
 	public void setStatus(String showTitle, int x, String username) {
 
 		try {
-			String status = "";
-			switch (x) {
-			case 1:
-				status = "complete";
-			case 2:
-				status = "in-process";
-			case 3:
-				status = "not complete";
-			default:
-				System.out.println("Please select an option between 1 and 3.");
-				break;
-			}
-			PreparedStatement pstmt = connection
-					.prepareStatement("update tv_status set status_name = ? " + "where status_id = ?");
-			pstmt.setString(1, status);
-			pstmt.setInt(2, x);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
+			PreparedStatement pstmt= connection.prepareStatement("update watch_instance set watch_instance.status_id = ? "
+					+ "where watch_instance.show_id = ? && watch_instance.user_id = ?");
+			pstmt.setInt(1, x);
+			pstmt.setInt(2, getShowId(showTitle));
+			pstmt.setInt(3, getUserId(username));
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("Can not complete request. Soory:)");
+		}
+				
 	}
 
+	
+//done
 	@Override
 	public String getStatus(String showTitle, String Username) {
 		// System.out.println("asdfasdfasf"+showTitle);
@@ -156,7 +182,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 			e.printStackTrace();
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}
-		return null;
+		return "Not watching";
 	}
 
 	@Override
@@ -171,7 +197,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 			while (rs.next()) {
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
-				int episodeCount = rs.getInt("episodeCount");
+				int episodeCount = rs.getInt("episode_Count");
 
 				Show show = new Show(id, name, episodeCount);
 				showList.add(show);
