@@ -112,13 +112,29 @@ VALUES
 SELECT * FROM Watch_instance;
 -- select * from tv_show;
 SELECT * FROM TV_show inner join watch_instance on tv_show.show_id = watch_instance.show_id;
-select status_name from tv_status 
-		inner join watch_instance on tv_status.status_id = watch_instance.status_id 
-		inner join tv_show on watch_instance.show_id = tv_show.show_id
-        -- inner join tv_user on watch_instance.status_id = tv_user.user_id
-		where show_name = 'Bleach' && user_id = 10;
+SELECT * FROM TV_status 
+		INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id 
+		INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id 
+		inner join TV_user on TV_user.user_id = Watch_instance.user_id  
+		WHERE show_name= 'Bleach' && Watch_instance.user_id = 1;
 select * from tv_user;
 select * from tv_show;
 select * from tv_status;
 SELECT * FROM Watch_instance;
+
 select user_id from tv_user where user_name = 'Bill';
+
+SELECT * FROM Watch_instance;
+SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_instance.show_id;
+SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id;
+#getStatus
+SELECT status_name FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id where show_name= 'Dahmer';
+
+update watch_instance set watch_instance.status_id = 3
+	WHERE watch_instance.show_id=  1 && watch_instance.user_id = 1;
+	-- INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id 
+-- 	INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id 
+-- 	inner join TV_user on TV_user.user_id = Watch_instance.user_id  
+--     
+-- 	WHERE show_name= 'Bleach' && Watch_instance.user_id = 1;
+
