@@ -10,6 +10,7 @@ public interface TvTrackerDaoInterface
 	public void setStatus(int x); //use x to serve as the status 1. complete 2. in-progress 3. not complete
 	public String getStatus(String showTitle); //user enters title, program returns show's status
 	public List <Show> getAllStatus(); //Query all shows with all status
+	public int getUserId(String username);
 	
 
 }

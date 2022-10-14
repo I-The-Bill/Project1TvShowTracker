@@ -121,3 +121,16 @@ SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch
 #getStatus
 SELECT status_name FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id where show_name= 'Dahmer';
 #setSTatus
+update Watch_instance 
+    join Watch_instance wi 
+    on tv.show_id = wi.show_id 
+    join tv_status ts 
+    on ts.status_id = wi.status_id
+    SET status_id = '2';
+    
+select tv.show_id, show_name, ts.status_id, user_id, status_name 
+from tv_show tv 
+    join Watch_instance wi 
+    on tv.show_id = wi.show_id 
+    join tv_status ts 
+    on ts.status_id = wi.status_id

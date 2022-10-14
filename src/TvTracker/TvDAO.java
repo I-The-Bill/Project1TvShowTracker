@@ -17,7 +17,7 @@ public class TvDAO implements TvTrackerDaoInterface{
 	public boolean usernameExist(String username) {
 		try {
 			
-			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_user while user_id = ?");
+			PreparedStatement pstmt = connection.prepareStatement("Select user_name from tv_user while user_id = ?");
 			pstmt.setString(1, username);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -36,8 +36,8 @@ public class TvDAO implements TvTrackerDaoInterface{
 	@Override
 	public boolean login(String username, String password) {
 try {
-			PreparedStatement pstmt1 = connection.prepareStatement("Select * from tv_user where user_name = ?");
-			PreparedStatement pstmt2 = connection.prepareStatement("Select * from tv_user where user_password = ?");
+			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
+			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
 			pstmt1.setString(1, username);
 			pstmt2.setString(1, password);
 			
@@ -45,6 +45,7 @@ try {
 			ResultSet rs2 = pstmt2.executeQuery();
 			
 			String name = rs1.getString("user_name");
+			String password1 = rs2.getString("user_password");
 			boolean exists1 = rs1.next();
 			boolean exists2 = rs2.next();
 			 
@@ -114,26 +115,45 @@ try {
 		}
 				
 	}
+@Override
+public int getUserId(String username) {
+		
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			//rs.first();
+			while(rs.next()) {
+			int id = rs.getInt("user_id");
+			
+			return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("User: = " + username + " not found.");
+		}
+		return -1;
+	}
 
+	
 	@Override
 	public String getStatus(String showTitle) {
 		
 		try {
 			PreparedStatement pstmt = connection.prepareStatement
-					("SELECT * FROM TV_status "
+					("SELECT status_name, user_id FROM TV_status "
 							+ "INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id "
 							+ "INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id "
-							+ "WHERE show_name= '?'");
-			
+							+ "WHERE show_name= ?");
+			System.out.println("X");
+			//set parameters
 			pstmt.setString(1, showTitle);
-			
+			System.out.println("Y");
 			ResultSet rs = pstmt.executeQuery();
-			rs.first();
-			
+			while(rs.next()) {
 			String status = rs.getString("status_name");
-			
+			System.out.println("Z");
 			return status;
-			
+			}
 		} catch (SQLException e) {
 			System.out.println("Show with title = " + showTitle + " not found.");
 		}

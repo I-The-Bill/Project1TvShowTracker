@@ -11,7 +11,7 @@ public class TvTrackerDriver {
 		/*	Setup
 		 * 
 		 */
-		TvTrackerDaoInterface showDAO = new TvDAO();
+		//TvTrackerDaoInterface showDAO = new TvDAO();
 		Scanner input = new Scanner(System.in);
 		Scanner input2 = new Scanner(System.in);
 
@@ -41,8 +41,8 @@ public class TvTrackerDriver {
 								  + "          **          **            \n"
 								  + "_________________________________   \n"
 							      + "\n\n\nPlease enter your user name   \n");
-		String username = "Bill";
-		String password = "1325";
+		String username = "Bill"; 
+		String password = "132";
 		boolean entryStatus = false;
 		TvTrackerDaoInterface tvSql = new TvDAO();
 		/* Making sure a username is entered 
@@ -51,10 +51,10 @@ public class TvTrackerDriver {
 		while (username.equalsIgnoreCase(""))
 		{
 			try 
-			{
-//				 
-				 //username = input.nextLine();//___________ Needs to be undone
-				 
+			{	
+				//	username = input.nextLine();
+			//___________ Needs to be undone
+
 			} 	
 			catch (Exception e) 
 			{
@@ -98,15 +98,17 @@ public class TvTrackerDriver {
 					case 1:
 						
 						System.out.println("\nPlease enter the show Title: ");
+						tvSql.getUserId(username);
 						String single = input2.nextLine();
 						if(!single.isEmpty()) {
-						System.out.println(showDAO.getStatus(single));
+						System.out.println(tvSql.getStatus(single));
+						
 						}
 						
 						break;
 					case 2:
 						System.out.println("Loading all the shows");
-						for(Show show : showDAO.getAllStatus()) {
+						for(Show show : tvSql.getAllStatus()) {
 							System.out.println(show);
 						}// while is stopping for the show print
 						break;
@@ -117,16 +119,17 @@ public class TvTrackerDriver {
 						System.out.println("\nPlease enter the show Title: ");
 						String single2 = input2.nextLine();
 						if(!single2.isEmpty()) {
-							System.out.println(showDAO.getShow(single2));
+							System.out.println(tvSql.getShow(single2));
 							}
 						break;
 					case 9:
 						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
+						active = false;
 						break;
 					default:
 						System.out.println("\nPlease enter a vaild option\n");
 						break;
-				}active = false;
+				}
 			} 
 			catch (InputMismatchException e) 
 			{
