@@ -41,8 +41,8 @@ public class Show {
 		return this.name;
 	}
 
-	private void setName(String name) {
-		this.name = name;
+	private void setName(String inName) {
+		this.name = inName;
 	}
 
 	public int getEc() {
@@ -64,7 +64,7 @@ public class Show {
 	@Override
 	public String toString() 
     {
-		return ("Show: " + this.name +"\tShow Id: " + this.id + "\tEpisode Count: " + episodeCount);
+		return ("Show: " + this.name +"\t\tShow Id: " + this.id + "\t\tEpisode Count: " + episodeCount);
     }
 
 }

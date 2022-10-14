@@ -1,16 +1,17 @@
 package TvTracker;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
-
-public class TvTrackerDriver
-{
+public class TvTrackerDriver {
 	public static void main(String[] args)
 	{
 		/*	Setup
 		 * 
 		 */
+		//TvTrackerDaoInterface showDAO = new TvDAO();
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n"
@@ -129,11 +130,11 @@ public class TvTrackerDriver
 								+ "to " + tvSql.getStatus(showName, username));
 						break;
 					
+
 					case 9:
 						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
 						active = false;
 						break;
-					
 					default:
 						System.out.println("\nPlease enter a vaild option\n");
 						break;
@@ -148,10 +149,5 @@ public class TvTrackerDriver
 				e.printStackTrace();
 			}
 		}
-		
 
-		
-
-	}
-}
-
+}}

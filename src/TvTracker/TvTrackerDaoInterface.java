@@ -11,6 +11,7 @@ public interface TvTrackerDaoInterface
 	public String getStatus(String showTitle, String username); //user enters title, program returns show's status
 	public int getUserId(String username);
 	public List <Show> getAllStatus(); //Query all shows with all status
+	public int getUserId(String username);
 	
 
 }
