@@ -41,7 +41,7 @@ public class Show {
 		return this.name;
 	}
 
-	private void setName(String inName) {
+	private void setName(String name) {
 		this.name = name;
 	}
 
