@@ -114,6 +114,7 @@ public class TvTrackerDriver {
 						break;
 					
 					case 2:
+						System.out.println("Loading the show list");
 						for(Show shows : tvSql.getAllStatus()) {
 							System.out.println(shows);
 						}
