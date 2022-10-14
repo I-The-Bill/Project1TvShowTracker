@@ -46,7 +46,8 @@ VALUES
 	(11,'Action fiction');
 
     -- SELECT FROM Category
-SELECT * FROM Category;
+SELECT * FROM Category
+group by category_id;
 
 
 -- INSERT INTO TABLE category_show
@@ -80,10 +81,10 @@ VALUES
 
             -- SELECT FROM TV_user
 SELECT * FROM TV_user;
-drop table TV_user;
+-- drop table TV_user;
 
 
--- INSERT INTO TV_status
+INSERT INTO TV_status
 	INSERT INTO 
 	TV_status(status_id, status_name)
 VALUES
