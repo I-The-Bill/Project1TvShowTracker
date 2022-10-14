@@ -1,3 +1,4 @@
+package TvTracker;
 public class Show {
 
 	// create attributes first then generate the constructor, getters/setters,
