@@ -40,15 +40,14 @@ public class TvJDBC {
 		if(connection == null) {
 			makeConnection();
 		}
-		
 		return connection;
 	}
 	
 	// main is only here so we can test our method above
 	public static void main(String[] args) {
-		Connection conn = TvJDBC.getConnection();
+		Connection con = TvJDBC.getConnection();
 		try {
-			conn.close();
+			con.close();
 			System.out.println("Connection closed.");
 		} catch(SQLException e) {
 			System.out.println("Could not make connection.");

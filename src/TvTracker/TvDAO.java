@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//import TvTracker.Show;
 
 public class TvDAO implements TvTrackerDaoInterface{
 	
@@ -55,9 +54,11 @@ try {
 			}
 			else if (exists1==true) {
 				System.out.println("Password entered is wrong");
+				return false;
 			} 
 			else if (exists2==true) {
 				System.out.println("Cannot find this username");
+				return false;
 			}
 			
 		} catch(Exception e) {
@@ -138,6 +139,8 @@ try {
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from tv_show");
 			List<Show> showList = new ArrayList<Show>();
+			
+			rs.first();
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
