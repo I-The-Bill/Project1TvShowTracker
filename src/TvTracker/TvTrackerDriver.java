@@ -53,8 +53,9 @@ public class TvTrackerDriver {
 		{
 			try 
 			{
-//				 ____________
-				 //username = input.nextLine();//___________ Needs to be undone
+//				 
+				 username = input.nextLine();//___________ Needs to be undone
+				 
 			} 	
 			catch (Exception e) 
 			{
@@ -99,7 +100,6 @@ public class TvTrackerDriver {
 						
 						System.out.println("\nPlease enter the show Title: ");
 						String single = input2.nextLine();
-						
 						if(!single.isEmpty()) {
 						System.out.println(showDAO.getStatus(single));
 						}

@@ -120,3 +120,4 @@ SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_insta
 SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id;
 #getStatus
 SELECT status_name FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id where show_name= 'Dahmer';
+#setSTatus
