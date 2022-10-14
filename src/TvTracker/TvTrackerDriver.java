@@ -45,7 +45,6 @@ public class TvTrackerDriver {
 		String password = "1325";
 		boolean entryStatus = false;
 		TvTrackerDaoInterface tvSql = new TvDAO();
-
 		/* Making sure a username is entered 
 		 * 
 		*/
@@ -54,7 +53,7 @@ public class TvTrackerDriver {
 			try 
 			{
 //				 
-				 username = input.nextLine();//___________ Needs to be undone
+				 //username = input.nextLine();//___________ Needs to be undone
 				 
 			} 	
 			catch (Exception e) 

@@ -36,8 +36,8 @@ public class TvDAO implements TvTrackerDaoInterface{
 	@Override
 	public boolean login(String username, String password) {
 try {
-			PreparedStatement pstmt1 = connection.prepareStatement("Select * from tv_user while user_name = ?");
-			PreparedStatement pstmt2 = connection.prepareStatement("Select * from tv_user while user_password = ?");
+			PreparedStatement pstmt1 = connection.prepareStatement("Select * from tv_user where user_name = ?");
+			PreparedStatement pstmt2 = connection.prepareStatement("Select * from tv_user where user_password = ?");
 			pstmt1.setString(1, username);
 			pstmt2.setString(1, password);
 			
@@ -141,6 +141,8 @@ try {
 		return null;
 	}
 
+	
+	//done
 	@Override
 	public List<Show> getAllStatus() {
 		
