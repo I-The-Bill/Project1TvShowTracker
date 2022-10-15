@@ -2,10 +2,10 @@
 
 Credits:
 Project Written By
-Francis Lowery
-Mansour Alokam
-Jalamang Janka
-Dongwoon Jeong
+1. Francis Lowery
+2. Mansour Alokam
+3. Jalamang Janka
+4. Dongwoon Jeong
 
 
 
