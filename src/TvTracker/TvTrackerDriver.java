@@ -1,9 +1,7 @@
 package TvTracker;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 
 public class TvTrackerDriver {
 	public static void main(String[] args)
@@ -38,47 +36,57 @@ public class TvTrackerDriver {
 				+ "          **          **            \n"
 				+ "_________________________________   \n"
 			    + "\n\n                                \n");
-		String username = "Bill";
-		String password = "1325";
+		String username = ""; //Bill
+		String password = ""; //1325
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
-		Show show = new Show();
+		
 
 		/* Making sure a username is entered 
 		 * 
 		*/
-		while (username.equalsIgnoreCase(""))
+		while (entryStatus == false)
 		{
+			while (username.equalsIgnoreCase(""))
+			{
+				try 
+				{
+					System.out.println("Please enter your user name:");
+					username = input.nextLine();
+					System.out.println("Please enter your password:");
+					password = input1.nextLine();
+				} 	
+				catch (Exception e) 
+				{
+					System.out.println("__Please enter a username__\n");
+				}
+			}
+			/*login process. 
+			*/
 			try 
 			{
-				System.out.println("Please enter your user name:");
-				username = input.nextLine();
-				System.out.println("Please enter your password:");
-				password = input1.nextLine();
-			} 	
+				if (tvSql.login(username, password)==true) {
+					entryStatus = true;
+				}
+				else
+				{
+					username = "";
+					password = "";
+					throw new BadLoginCredentialsException();
+				}
+			}
+			catch(BadLoginCredentialsException e){
+				System.out.println(e.getMessage());
+			}
 			catch (Exception e) 
 			{
-				System.out.println("__Please enter a username__\n");
+				e.printStackTrace();
 			}
 		}
-		/*login process. 
-		*/
-		try 
-		{
-			if (tvSql.login(username, password)==true) {
-				entryStatus = true;
-			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
 		
 		boolean active = true;
 		while (active == true)
 		{
-			Show x = new Show();
 			System.out.println("\nWhat would you like to do?\n"
 							+"\n1. Check the status of a single show"
 							+"\n2. check the status of all my shows"
@@ -86,18 +94,25 @@ public class TvTrackerDriver {
 							+"\nPress 9 to Quit");
 
 			
-			//int toDo = -1;
+			
 			String showName = "";
 			int status = 0;
 			try 
 			{
 				int toDo = input1.nextInt();
-				//ainput1.nextInt();
 				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
 						showName = input.nextLine();
-						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
+						if (tvSql.getStatus(showName, username) != null)
+						{
+							String stat = tvSql.getStatus(showName, username);
+							System.out.println("The show "+ showName + "\'s Status is: " + stat);
+						}
+						else
+						{
+							throw new ShowNotWatchedException();
+						}
 						break;
 					
 					case 2:
@@ -109,11 +124,18 @@ public class TvTrackerDriver {
 						System.out.println("What show did you want to update?");
 						showName = input.nextLine();
 						System.out.println("What status would you like to set for " + showName 
-								+ "\n1. Complete\n2. In Progress\n3. Complete");
+								+ "\n1. Complete\n2. In Progress\n3. Not Complete");
 						status = input1.nextInt();
 						tvSql.setStatus(status,showName,username);
-						System.out.println(showName + "\'s status has successfully been updated "
+						if (tvSql.getStatus(showName, username)!= null)
+						{	
+							System.out.println(showName + "\'s status has successfully been updated "
 								+ "to " + tvSql.getStatus(showName, username));
+						}
+						else
+						{
+							throw new ShowNotWatchedException();
+						}
 						break;
 					
 
@@ -131,13 +153,19 @@ public class TvTrackerDriver {
 				System.out.println("\nPlease enter a vaild option\n");
 				input1.next();
 			}
+			catch(ShowNotWatchedException e)
+			{
+				System.out.println(e.getMessage());
+			}
+			
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
 		}
 
-
+		input.close();
+		input1.close();
 	}
 }
 

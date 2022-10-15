@@ -22,14 +22,14 @@ public class TvJDBC {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Attempting to establish a connection to server\n");
 		String URL = props.getProperty("url");
 		String USERNAME = props.getProperty("username");
 		String PASSWORD = props.getProperty("password");
 		
 		try {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected.");
+			System.out.println("Connected.\n");
 		} catch(SQLException e) {
 			System.out.println("Could not make connection.");
 		}

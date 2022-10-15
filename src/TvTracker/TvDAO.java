@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class TvDAO implements TvTrackerDaoInterface{
@@ -30,22 +28,24 @@ public class TvDAO implements TvTrackerDaoInterface{
 			boolean exists2 = rs2.next();
 			 
 			if (exists1==true && exists2==true) {
-				System.out.printf("Welcome %s\n", username);
+				System.out.printf("\n\n\nWelcome %s\n", username);
 				return true;
 			}
 			else if (exists1==true) {
-				System.out.println("Password entered is wrong");
-				return false;
+				throw new BadLoginCredentialsException();
 			} 
 			else if (exists2==true) {
-				System.out.println("Cannot find this username");
-				return false;
+				//System.out.println("Cannot find this username");
+				throw new BadLoginCredentialsException();
 			}
 			
-		} catch(Exception e) {
+		} catch(BadLoginCredentialsException e) {
+			e.getMessage();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Username/password are incorrect");
+		//System.out.println("Username/password are incorrect");
 		return false;
 	}
 	
@@ -93,6 +93,7 @@ public class TvDAO implements TvTrackerDaoInterface{
 			pstmt.setInt(2, getShowId(showTitle));
 			pstmt.setInt(3, getUserId(username));
 			pstmt.executeUpdate();
+			
 
 		} catch (SQLException e) {
 			System.out.println("Can not complete request. Soory:)");
@@ -115,13 +116,24 @@ public class TvDAO implements TvTrackerDaoInterface{
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				String status = rs.getString("status_name");
-				return status;
+				if(!(status.equalsIgnoreCase("null")))
+				{	
+					return status;
+				}	
+				else
+				{
+					throw new ShowNotWatchedException();
+				}
 			}
 		} 
+		catch (ShowNotWatchedException e) 
+		{
+			System.out.println(e.getMessage());
+		}
 		catch (SQLException e) 
 		{
 			System.out.println("Show with title = " + showTitle + " not found.");
-		}
+		} 
 		return null;
 	}
 
@@ -159,10 +171,6 @@ public class TvDAO implements TvTrackerDaoInterface{
 			
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery(); 
-			
-//			rs.first();
-			String showTitle = "";
-			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
