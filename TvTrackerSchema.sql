@@ -48,3 +48,4 @@ create table Watch_instance
     status_id int,
     foreign key (status_id) REFERENCES TV_status(status_id)
 );
+select * from Watch_instance;

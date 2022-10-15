@@ -84,38 +84,74 @@ SELECT * FROM TV_user;
 -- drop table TV_user;
 
 
-INSERT INTO TV_status
-	INSERT INTO 
+-- INSERT INTO TV_status
+INSERT INTO 
 	TV_status(status_id, status_name)
 VALUES
  (NULL, 'completed'),
  (NULL, 'in progress'),
  (NULL, 'Not Completed');
 
+SELECT * FROM TV_status;
  -- INSERT INTO Watch_instance
-	INSERT INTO 
+
+INSERT INTO 
 	Watch_instance(instance_id, user_id, show_id, status_id)
 VALUES
- (NULL, 31, 1, 1),
- (NULL, 32, 16, 2),
- (NULL, 33, 8, 1),
- (NULL, 34, 20, 3),
- (NULL, 35, 2, 2),
- (NULL, 36, 3, 3),
- (NULL, 37, 1, 2),
- (NULL, 38, 4, 1),
-  (NULL, 39, 6, 2),
-  (NULL, 40, 7, 1),
-  (NULL, 31, 18, 1),
-  (NULL, 32, 9, 2),
-  (NULL, 33, 11, 1),
-  (NULL, 34, 12, 3),
-  (NULL, 35, 13, 3),
-  (NULL, 36, 15, 1),
-  (NULL, 37, 10, 2),
-  (NULL, 38, 17, 1),
-  (NULL, 39, 14, 3),
-  (NULL, 40, 19, 3);
+ (NULL, 1, 1, 1),
+ (NULL, 2, 16, 2),
+ (NULL, 3, 8, 1),
+ (NULL, 4, 20, 3),
+ (NULL, 5, 2, 2),
+ (NULL, 6, 3, 3),
+ (NULL, 7, 1, 2),
+ (NULL, 8, 4, 1),
+ (NULL, 9, 6, 2),
+ (NULL, 10, 7, 1),
+ (NULL, 1, 18, 1),
+ (NULL, 2, 9, 2),
+ (NULL, 3, 11, 1),
+ (NULL, 4, 12, 3),
+ (NULL, 5, 13, 3),
+ (NULL, 6, 15, 1),
+ (NULL, 7, 10, 2),
+ (NULL, 8, 17, 1),
+ (NULL, 9, 14, 3),
+ (NULL, 10, 19, 3);
+
+insert watch_instance(instance_id, user_id, show_id, status_id)
+ value(NULL, 10, 1, 3);
+
+SELECT * FROM Watch_instance;
+-- select * from tv_show;
+SELECT * FROM TV_show inner join watch_instance on tv_show.show_id = watch_instance.show_id;
+SELECT * FROM TV_status 
+		INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id 
+		INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id 
+		inner join TV_user on TV_user.user_id = Watch_instance.user_id  
+		WHERE show_name= 'Bleach' && Watch_instance.user_id = 1;
+select * from tv_user;
+select * from tv_show;
+select * from tv_status;
+SELECT * FROM Watch_instance;
+select user_id from tv_user where user_name = 'Bill';
 
 SELECT * FROM Watch_instance;
 SELECT * FROM TV_show INNER JOIN Watch_instance ON TV_show.show_id = Watch_instance.show_id;
+SELECT * FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id;
+#getStatus
+SELECT status_name FROM TV_status INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id where show_name= 'Dahmer';
+
+update watch_instance set watch_instance.status_id = 1
+	WHERE watch_instance.show_id=  1 && watch_instance.user_id = 1;
+	-- INNER JOIN Watch_instance ON TV_status.status_id = Watch_instance.status_id 
+-- 	INNER JOIN TV_show ON Watch_instance.show_id = TV_show.show_id 
+-- 	inner join TV_user on TV_user.user_id = Watch_instance.user_id  
+--     
+-- 	WHERE show_name= 'Bleach' && Watch_instance.user_id = 1;
+
+Select * from tv_show 
+	inner join watch_instance on tv_show.show_id = watch_instance.show_id
+	inner join tv_status on watch_instance.status_id = tv_status.status_id
+    inner join tv_user on tv_user.user_id = watch_instance.user_id
+	where tv_user.user_name = 'john';
