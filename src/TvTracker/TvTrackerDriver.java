@@ -7,7 +7,7 @@ public class TvTrackerDriver {
 	public static void main(String[] args)
 	{
 		//SetUp
-
+		final int MAXATTEMPTS = 3;
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n"
@@ -40,29 +40,28 @@ public class TvTrackerDriver {
 		String password = ""; //1325
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
-		
+		int logInAttenpts = 0;
+		boolean active = false;
 
 		/* Making sure a username is entered 
 		 * 
 		*/
-		while (entryStatus == false)
-		{
-			while (username.equalsIgnoreCase(""))
+		while (logInAttenpts < MAXATTEMPTS && entryStatus == false && username.equalsIgnoreCase(""))
+		{	
+			try 
 			{
-				try 
-				{
-					System.out.println("Please enter your user name:");
-					username = input.nextLine();
-					System.out.println("Please enter your password:");
-					password = input1.nextLine();
-				} 	
-				catch (Exception e) 
-				{
-					System.out.println("__Please enter a username__\n");
-				}
+				System.out.println("Please enter your user name:");
+				username = input.nextLine();
+				System.out.println("Please enter your password:");
+				password = input1.nextLine();
+			} 	
+			catch (Exception e) 
+			{
+				System.out.println("__Please enter a username__\n");
 			}
-			/*login process. 
-			*/
+		
+				/*login process. 
+				*/
 			try 
 			{
 				if (tvSql.login(username, password)==true) {
@@ -72,19 +71,20 @@ public class TvTrackerDriver {
 				{
 					username = "";
 					password = "";
+					logInAttenpts+=1;
 					throw new BadLoginCredentialsException();
 				}
 			}
 			catch(BadLoginCredentialsException e){
-				System.out.println(e.getMessage());
+				System.out.println("\n"+e.getMessage()+"\n");
 			}
 			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
-		}
+		}	
 		
-		boolean active = true;
+	
 		while (active == true)
 		{
 			System.out.println("\nWhat would you like to do?\n"
@@ -92,9 +92,6 @@ public class TvTrackerDriver {
 							+"\n2. check the status of all my shows"
 							+"\n3. Update the status of a show"
 							+"\nPress 9 to Quit");
-
-			
-			
 			String showName = "";
 			int status = 0;
 			try 
@@ -163,7 +160,11 @@ public class TvTrackerDriver {
 				e.printStackTrace();
 			}
 		}
-
+		
+		if (logInAttenpts >= MAXATTEMPTS)
+		{
+			System.out.println("\n\nMAX login attmepts reached\n\nNOW EXITING PROGRAM");
+		}
 		input.close();
 		input1.close();
 	}
