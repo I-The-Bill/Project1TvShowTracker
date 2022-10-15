@@ -1,6 +1,5 @@
 # Project1TvShowTracker
 
-Credits:
 Project Written By
 1. Francis Lowery
 2. Mansour Alokam
