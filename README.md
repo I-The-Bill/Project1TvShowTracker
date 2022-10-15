@@ -16,13 +16,13 @@ Requirements:
 5. Eclipse Java IDE
 
 Instructions to Run
-1. Ensure ALL project files are ran.
-2. make resource folder in Top Folder containing your config files
+1. Ensure ALL project files are aqquired.
+2. make resource folder in Top Project Folder and place your config file in that folder
 3. Ensure MySql Server is running
 4. Run TvTrackerSchema.sql in MySQL
 5. Run TvTrackerData.sql in MySQL
-6. Import project into Eclipes
+6. Import project into Eclipse
 7. Ensure your build path contains your local JRE
-8. Add External jar - mysql-connector-j.jar
+8. Add External jar - mysql-connector-j.jar to build path
 9. Click into TvTrackerDriver
 10. Run
