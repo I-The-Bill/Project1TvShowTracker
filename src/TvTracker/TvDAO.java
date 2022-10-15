@@ -10,12 +10,13 @@ import java.sql.SQLException;
 public class TvDAO implements TvTrackerDaoInterface{
 	
 	private Connection connection = TvJDBC.getConnection();
+	
 
 	
 	@Override
 	public boolean login(String username, String password) {
 		try {
-
+			
 			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
 			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
 			pstmt1.setString(1, username);

@@ -16,8 +16,8 @@ Requirements:
 5. Eclipse Java IDE
 
 Instructions to Run
-1. Ensure ALL project files are aqquired.
-2. make resource folder in Top Project Folder and place your config file in that folder
+1. Ensure ALL project files are acquired.
+2. Make resource folder in Top Project Folder and place your config file in that folder
 3. Ensure MySql Server is running
 4. Run TvTrackerSchema.sql in MySQL
 5. Run TvTrackerData.sql in MySQL

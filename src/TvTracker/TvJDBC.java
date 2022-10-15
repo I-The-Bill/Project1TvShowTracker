@@ -29,9 +29,16 @@ public class TvJDBC {
 		
 		try {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected.\n");
+			System.out.println("Connection Established.\n");
 		} catch(SQLException e) {
-			System.out.println("Could not make connection.");
+			System.out.println("Could not make connection. Please check the following:\n"
+							 + "-- config.properties file has the right credentials.\n"
+							 + "-- config.properties file is in the resource folder\n"
+							 + "-- Resource folder is in the top directory of the projec\n"
+							 + "-- MySQL server is running\n"
+							 + "-- Everything is updated\n\n\n"
+							 + "NOW EXITING PROGRAM");
+			System.exit(0);
 		}
 		
 	}
