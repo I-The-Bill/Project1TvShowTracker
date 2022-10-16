@@ -11,18 +11,18 @@ public class TvDAO implements TvTrackerDaoInterface {
 	private Connection connection = TvJDBC.getConnection();
 
 	//done
-	@Override
-	public void register(String username, String password) {
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO  TV_user(user_id, user_name, user_password) VALUE(NULL, ?, ?)");
-			pstmt.setString(1, username);
-			pstmt.setString(2, password);
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("Can not register request. Sorry :(");
-		}
-	}
+	//@Override
+//	public void register(String username, String password) {
+//		try {
+//			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO  TV_user(user_id, user_name, user_password) VALUE(NULL, ?, ?)");
+//			pstmt.setString(1, username);
+//			pstmt.setString(2, password);
+//			pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			System.out.println("Can not register request. Sorry :(");
+//		}
+//	}
 	
 	
 	//done
@@ -32,12 +32,14 @@ public class TvDAO implements TvTrackerDaoInterface {
 			
 			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
 			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
+			pstmt1.setString(1, username);
+			pstmt2.setString(1, password);
+			
+			ResultSet rs1 = pstmt1.executeQuery();
+			ResultSet rs2 = pstmt2.executeQuery();
 
-			// String name = rs1.getString("user_name");
-			// String password = rs1.getString("user_password");
 			boolean exists1 = rs1.next();
 			boolean exists2 = rs2.next();
-
 			if (exists1 == true && exists2 == true) {
 				System.out.printf("Welcome %s\n", username);
 				return true;
@@ -109,25 +111,8 @@ public class TvDAO implements TvTrackerDaoInterface {
 				
 	}
 	//done
-	@Override
-	public void setStatus(String showTitle, int x, String username) {
 
-		try {
-
-			PreparedStatement pstmt= connection.prepareStatement("update watch_instance set watch_instance.status_id = ? "
-					+ "where watch_instance.show_id = ? && watch_instance.user_id = ?");
-			pstmt.setInt(1, x);
-			pstmt.setInt(2, getShowId(showTitle));
-			pstmt.setInt(3, getUserId(username));
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("Can not complete request. Soory:)");
-		}
-				
-	}
-
-@Override
+   @Override
 	public String getStatus(String showTitle, String Username) {
 		try 
 		{

@@ -69,12 +69,6 @@ public class TvTrackerDriver {
 			{
 				if (tvSql.login(username, password)==true) {
 					entryStatus = true;
-				}else {
-					System.out.println("Please register\nenter username:");
-					username = input.nextLine();
-					System.out.println("enter password");
-					password = input.nextLine();
-					tvSql.register(username, password);
 				}
 				else
 				{
@@ -104,13 +98,13 @@ public class TvTrackerDriver {
 							+"\nPress 9 to Quit");
 
 
-			String toDo = input.nextLine();
-			int toDo2 = Integer.parseInt(toDo);
+			int toDo = -1;
+			
 			String showName = "";
 			int status = 0;
 			try 
 			{
-				int toDo = input1.nextInt();
+				toDo = input1.nextInt();
 				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
@@ -127,9 +121,8 @@ public class TvTrackerDriver {
 						break;
 					
 					case 2:
-						System.out.println("\nYour history log:");
+						System.out.println("Loading the show list");
 						tvSql.getAllStatus(username);
-
 						break;
 						
 					case 3:
@@ -150,13 +143,7 @@ public class TvTrackerDriver {
 							throw new ShowNotWatchedException();
 						}
 						break;
-					case 4:
-						System.out.println("Loading the show list");
-						for(Show shows : tvSql.getAllStatus()) {
-							System.out.println(shows);
-						}
-						
-						break;
+					
 
 					case 9:
 						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
