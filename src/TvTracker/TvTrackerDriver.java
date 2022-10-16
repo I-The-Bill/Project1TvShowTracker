@@ -95,13 +95,12 @@ public class TvTrackerDriver {
 		}	
 		
 	
-		while (active == true)
+		while (entryStatus == true)
 		{
 			System.out.println("\nWhat would you like to do?\n"
 							+"\n1. Check the status of a single show"
 							+"\n2. check the status of all my shows"
 							+"\n3. Update the status of a show"
-							+"\n4. select show"
 							+"\nPress 9 to Quit");
 
 
@@ -150,13 +149,6 @@ public class TvTrackerDriver {
 						{
 							throw new ShowNotWatchedException();
 						}
-						break;
-					case 4:
-						System.out.println("Loading the show list");
-						for(Show shows : tvSql.getAllStatus()) {
-							System.out.println(shows);
-						}
-						
 						break;
 
 					case 9:

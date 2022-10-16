@@ -17,7 +17,7 @@ public class TvJDBC {
 		Properties props = new Properties();
 		
 		try {
-			props.load(new FileInputStream("resource/config.properties"));
+			props.load(new FileInputStream("src/resource/config.properties"));
 			
 		} catch(IOException e) {
 			e.printStackTrace();
