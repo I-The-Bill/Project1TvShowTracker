@@ -69,12 +69,13 @@ public class TvTrackerDriver {
 			{
 				if (tvSql.login(username, password)==true) {
 					entryStatus = true;
-				}else {
-					System.out.println("Please register\nenter username:");
-					username = input.nextLine();
-					System.out.println("enter password");
-					password = input.nextLine();
-					tvSql.register(username, password);
+					
+//				}else {
+//					System.out.println("Please register\nenter username:");
+//					username = input.nextLine();
+//					System.out.println("enter password");
+//					password = input.nextLine();
+//					tvSql.register(username, password);
 				}
 				else
 				{
@@ -104,8 +105,8 @@ public class TvTrackerDriver {
 							+"\nPress 9 to Quit");
 
 
-			String toDo = input.nextLine();
-			int toDo2 = Integer.parseInt(toDo);
+			
+			
 			String showName = "";
 			int status = 0;
 			try 
@@ -191,7 +192,3 @@ public class TvTrackerDriver {
 		input1.close();
 	}
 }
-
-
-
-

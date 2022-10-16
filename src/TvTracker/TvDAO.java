@@ -27,54 +27,42 @@ public class TvDAO implements TvTrackerDaoInterface {
 	
 	//done
 	@Override
-	public boolean login(String username, String password) {
+	public boolean login(String username, String inPassword) {
 		try {
 			
 			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
 			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
-
-			// String name = rs1.getString("user_name");
-			// String password = rs1.getString("user_password");
+			pstmt1.setString(1, username);
+			pstmt2.setString(1, inPassword);
+			//pstmt1.setString
+			ResultSet rs1 = pstmt1.executeQuery();
+			ResultSet rs2 = pstmt2.executeQuery();
 			boolean exists1 = rs1.next();
 			boolean exists2 = rs2.next();
 
-			if (exists1 == true && exists2 == true) {
-				System.out.printf("Welcome %s\n", username);
+			if (exists1==true && exists2==true) {
+				System.out.printf("\n\n\nWelcome %s\n", username);
 				return true;
-			} else if (exists1 == true) {
-				System.out.println("Password entered is wrong");
-				return false;
-			} else if (exists2 == true) {
-				System.out.println("Cannot find this username");
-				return false;
 			}
-
-		} catch (Exception e) {
+			else if (exists1==true) {
+				throw new BadLoginCredentialsException();
+			} 
+			else if (exists2==true) {
+				//System.out.println("Cannot find this username");
+				throw new BadLoginCredentialsException();
+			}
+			
+		} catch(BadLoginCredentialsException e) {
+			e.getMessage();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
 		//System.out.println("Username/password are incorrect");
 		return false;
 	}
 	
-	
-	private int getUserId(String username) {
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
-			pstmt.setString(1, username);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				int id = rs.getInt("user_id");
-
-				return id;
-			}
-		} catch (SQLException e) {
-			System.out.println("User " + username + " not found.");
-		}
-		return -1;
-	}
-	
-	
-	private int getShowId(String showTitle) {
+	public int getShowId(String showTitle) {
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Select show_id from TV_show where show_name = ?");
 			pstmt.setString(1, showTitle);
@@ -85,6 +73,23 @@ public class TvDAO implements TvTrackerDaoInterface {
 			}
 		} catch (SQLException e) {
 			System.out.println("Show " + showTitle + " not found.");
+		}
+		return -1;
+	}
+	
+	public int getUserId(String username) {
+		
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+			int id = rs.getInt("user_id");
+			
+			return id;
+			}
+		} catch (SQLException e) {
+			System.out.println("User: = " + username + " not found.");
 		}
 		return -1;
 	}
@@ -108,25 +113,6 @@ public class TvDAO implements TvTrackerDaoInterface {
 		}
 				
 	}
-	//done
-	@Override
-	public void setStatus(String showTitle, int x, String username) {
-
-		try {
-
-			PreparedStatement pstmt= connection.prepareStatement("update watch_instance set watch_instance.status_id = ? "
-					+ "where watch_instance.show_id = ? && watch_instance.user_id = ?");
-			pstmt.setInt(1, x);
-			pstmt.setInt(2, getShowId(showTitle));
-			pstmt.setInt(3, getUserId(username));
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("Can not complete request. Soory:)");
-		}
-				
-	}
-
 @Override
 	public String getStatus(String showTitle, String Username) {
 		try 
