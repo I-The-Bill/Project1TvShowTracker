@@ -41,7 +41,7 @@ public class TvTrackerDriver {
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
 		int logInAttenpts = 0;
-		boolean active = false;
+		
 
 		/* Making sure a username is entered 
 		 * 
