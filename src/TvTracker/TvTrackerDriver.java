@@ -38,6 +38,7 @@ public class TvTrackerDriver {
 			    + "\n\n                                \n");
 		String username = ""; //Bill
 		String password = ""; //1325
+
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
 		int logInAttenpts = 0;
@@ -48,12 +49,14 @@ public class TvTrackerDriver {
 		*/
 		while (logInAttenpts < MAXATTEMPTS && entryStatus == false && username.equalsIgnoreCase(""))
 		{	
+
 			try 
 			{
 				System.out.println("Please enter your user name:");
 				username = input.nextLine();
 				System.out.println("Please enter your password:");
 				password = input1.nextLine();
+
 			} 	
 			catch (Exception e) 
 			{
@@ -66,6 +69,12 @@ public class TvTrackerDriver {
 			{
 				if (tvSql.login(username, password)==true) {
 					entryStatus = true;
+				}else {
+					System.out.println("Please register\nenter username:");
+					username = input.nextLine();
+					System.out.println("enter password");
+					password = input.nextLine();
+					tvSql.register(username, password);
 				}
 				else
 				{
@@ -91,7 +100,12 @@ public class TvTrackerDriver {
 							+"\n1. Check the status of a single show"
 							+"\n2. check the status of all my shows"
 							+"\n3. Update the status of a show"
+							+"\n4. select show"
 							+"\nPress 9 to Quit");
+
+
+			String toDo = input.nextLine();
+			int toDo2 = Integer.parseInt(toDo);
 			String showName = "";
 			int status = 0;
 			try 
@@ -115,6 +129,7 @@ public class TvTrackerDriver {
 					case 2:
 						System.out.println("\nYour history log:");
 						tvSql.getAllStatus(username);
+
 						break;
 						
 					case 3:
@@ -122,6 +137,7 @@ public class TvTrackerDriver {
 						showName = input.nextLine();
 						System.out.println("What status would you like to set for " + showName 
 								+ "\n1. Complete\n2. In Progress\n3. Not Complete");
+
 						status = input1.nextInt();
 						tvSql.setStatus(status,showName,username);
 						if (tvSql.getStatus(showName, username)!= null)
@@ -134,7 +150,13 @@ public class TvTrackerDriver {
 							throw new ShowNotWatchedException();
 						}
 						break;
-					
+					case 4:
+						System.out.println("Loading the show list");
+						for(Show shows : tvSql.getAllStatus()) {
+							System.out.println(shows);
+						}
+						
+						break;
 
 					case 9:
 						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
