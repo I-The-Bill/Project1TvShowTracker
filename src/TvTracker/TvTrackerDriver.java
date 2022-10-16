@@ -50,7 +50,7 @@ public class TvTrackerDriver {
 		/* Making sure a username is entered 
 		 * 
 		*/
-		while (username.equalsIgnoreCase(""))
+		while (entryStatus != true)
 		{
 			try 
 			{
@@ -58,8 +58,7 @@ public class TvTrackerDriver {
 				username = input.nextLine();
 				System.out.println("Please enter your password:");
 				password = input.nextLine();
-				
-				
+				entryStatus = true;
 			} 	
 			catch (Exception e) 
 			{
