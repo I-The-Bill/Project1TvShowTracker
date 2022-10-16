@@ -10,20 +10,20 @@ public class TvDAO implements TvTrackerDaoInterface {
 
 	private Connection connection = TvJDBC.getConnection();
 
-	//done
 	@Override
-	public void register(String username, String password) {
-		try {
-			PreparedStatement pstmt = connection.prepareStatement("INSERT INTO  TV_user(user_id, user_name, user_password) VALUE(NULL, ?, ?)");
-			pstmt.setString(1, username);
-			pstmt.setString(2, password);
-			pstmt.executeUpdate();
+    public void Register(String username, String password) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("Insert Tv_user(user_id, user_name, user_password)"
+                    + "value(NULL, ?, ?)");
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            pstmt.executeUpdate();
+            System.out.printf("\nWelcome %s\n", username);
 
-		} catch (SQLException e) {
-			System.out.println("Can not register request. Sorry :(");
-		}
-	}
-	
+        } catch (Exception e) {
+            System.out.println("Something went wrong, cannot create new account");
+        }
+    }
 	
 	//done
 	@Override
@@ -62,7 +62,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 		return false;
 	}
 	
-	public int getShowId(String showTitle) {
+	private int getShowId(String showTitle) {
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Select show_id from TV_show where show_name = ?");
 			pstmt.setString(1, showTitle);
@@ -77,7 +77,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 		return -1;
 	}
 	
-	public int getUserId(String username) {
+	private int getUserId(String username) {
 		
 		try {
 			PreparedStatement pstmt = connection.prepareStatement("Select user_id from TV_user where user_name = ?");
