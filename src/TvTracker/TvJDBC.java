@@ -22,16 +22,23 @@ public class TvJDBC {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Attempting to establish a connection to server\n");
 		String URL = props.getProperty("url");
 		String USERNAME = props.getProperty("username");
 		String PASSWORD = props.getProperty("password");
 		
 		try {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected.");
+			System.out.println("Connection Established.\n");
 		} catch(SQLException e) {
-			System.out.println("Could not make connection.");
+			System.out.println("Could not make connection. Please check the following:\n"
+							 + "-- config.properties file has the right credentials.\n"
+							 + "-- config.properties file is in the resource folder\n"
+							 + "-- Resource folder is in the top directory of the projec\n"
+							 + "-- MySQL server is running\n"
+							 + "-- Everything is updated\n\n\n"
+							 + "NOW EXITING PROGRAM");
+			System.exit(0);
 		}
 		
 	}

@@ -1,80 +1,73 @@
 package TvTracker;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 
 public class TvTrackerDriver {
 	public static void main(String[] args)
 	{
-		
-		/*	Setup
-		 * 
-		 */
-		//TvTrackerDaoInterface showDAO = new TvDAO();
+		//SetUp
+		final int MAXATTEMPTS = 3;
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n"
-								+ "         _           _              \n"
-								+ "        / \\**       / \\**         \n"
-								+ "       /   \\**     /   \\**        \n"
-								+ "      / /*\\ \\**   / /*\\ \\**     \n"
-								+ "     / /** \\ \\** / /** \\ \\**    \n"
-								+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
-								+ "   / /**     \\___/**     \\ \\**   \n"
-								+ "  / /**        ****       \\ \\**   \n"
-								+ " | |**                    |  |**    \n"
-								+ " | |*_____________________|  |**    \n"
-								+ " |                           |**    \n"
-								+ " |  TV SHOW STATUS TRACKER   |**    \n"
-								+ " |  _______________________  |**    \n"
-								+ " | |**                     | |**    \n"
-								+ " | |**                     | |**    \n"
-								+ "  \\ \\*        ___         / /**   \n"
-								+ "   \\ \\*      / _ \\       / /**   \n"
-								+ "    \\ \\*    / /*\\ \\     / /**   \n"
-								+ "     \\ \\*  / /** \\ \\   / /**    \n"
-								+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
-								+ "       \\   /**     \\   /**        \n"
-								+ "        \\_/**       \\_/**         \n" 
-								+ "          **          **            \n"
-								+ "_________________________________   \n"
-							    + "\n\n                                \n");
-		String username = "";
-		String password = "";
+				+ "         _           _              \n"
+				+ "        / \\**       / \\**         \n"
+				+ "       /   \\**     /   \\**        \n"
+				+ "      / /*\\ \\**   / /*\\ \\**     \n"
+				+ "     / /** \\ \\** / /** \\ \\**    \n"
+				+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
+				+ "   / /**     \\___/**     \\ \\**   \n"
+				+ "  / /**        ****       \\ \\**   \n"
+				+ " | |**                    |  |**    \n"
+				+ " | |*_____________________|  |**    \n"
+				+ " |                           |**    \n"
+				+ " |  TV SHOW STATUS TRACKER   |**    \n"
+				+ " |  _______________________  |**    \n"
+				+ " | |**                     | |**    \n"
+				+ " | |**                     | |**    \n"
+				+ "  \\ \\*        ___         / /**   \n"
+				+ "   \\ \\*      / _ \\       / /**   \n"
+				+ "    \\ \\*    / /*\\ \\     / /**   \n"
+				+ "     \\ \\*  / /** \\ \\   / /**    \n"
+				+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
+				+ "       \\   /**     \\   /**        \n"
+				+ "        \\_/**       \\_/**         \n" 
+				+ "          **          **            \n"
+				+ "_________________________________   \n"
+			    + "\n\n                                \n");
+		String username = ""; //Bill
+		String password = ""; //1325
+
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
-		Show show = new Show();
+		int logInAttenpts = 0;
+		boolean active = false;
 
 		/* Making sure a username is entered 
 		 * 
 		*/
-		while (entryStatus != true)
-		{
+		while (logInAttenpts < MAXATTEMPTS && entryStatus == false && username.equalsIgnoreCase(""))
+		{	
+
 			try 
 			{
 				System.out.println("Please enter your user name:");
 				username = input.nextLine();
 				System.out.println("Please enter your password:");
-				password = input.nextLine();
-				entryStatus = true;
+				password = input1.nextLine();
+
 			} 	
 			catch (Exception e) 
 			{
 				System.out.println("__Please enter a username__\n");
 			}
-		}
-		/*login process. 
-		 * Should check username again database to see if user name exist and if it does move to attempting login with password
-		*/
-		try 
-		{
-//			if (tvSql.usernameExist(username)==true)
-//			{
-//				System.out.println("\n\nWelcome " + username +"\n");
-				if (tvSql.login(username, password)==true)
-				{
+		
+				/*login process. 
+				*/
+			try 
+			{
+				if (tvSql.login(username, password)==true) {
 					entryStatus = true;
 				}else {
 					System.out.println("Please register\nenter username:");
@@ -83,24 +76,26 @@ public class TvTrackerDriver {
 					password = input.nextLine();
 					tvSql.register(username, password);
 				}
-						
-				
-//			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
+				else
+				{
+					username = "";
+					password = "";
+					logInAttenpts+=1;
+					throw new BadLoginCredentialsException();
+				}
+			}
+			catch(BadLoginCredentialsException e){
+				System.out.println("\n"+e.getMessage()+"\n");
+			}
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}	
 		
-
-//		for(Show shows : tvSql.getAllStatus()) {
-//			System.out.println(shows);
-//		}
-		
-		boolean active = true;
-		while (!active == false)
+	
+		while (active == true)
 		{
-			Show x = new Show();
 			System.out.println("\nWhat would you like to do?\n"
 							+"\n1. Check the status of a single show"
 							+"\n2. check the status of all my shows"
@@ -115,35 +110,45 @@ public class TvTrackerDriver {
 			int status = 0;
 			try 
 			{
-//				toDo = 1;
-				
-				switch(toDo2) {
-				
+				int toDo = input1.nextInt();
+				switch(toDo) {
 					case 1:
 						System.out.println("Please enter the title of the show you want to check");
-						String theShow = input.nextLine();
-						//System.out.println(tvSql.getUserId(username));
-						System.out.println("The show "+ theShow + "\'s Status is: " + tvSql.getStatus(theShow, username));
+						showName = input.nextLine();
+						if (tvSql.getStatus(showName, username) != null)
+						{
+							String stat = tvSql.getStatus(showName, username);
+							System.out.println("The show "+ showName + "\'s Status is: " + stat);
+						}
+						else
+						{
+							throw new ShowNotWatchedException();
+						}
 						break;
 					
 					case 2:
-						System.out.println("Loading the show list");
-						for(Show shows : tvSql.getAllStatus()) {
-							System.out.println(shows);
-						}
-						active = false;
-						
+						System.out.println("\nYour history log:");
+						tvSql.getAllStatus(username);
+
 						break;
 						
 					case 3:
 						System.out.println("What show did you want to update?");
-						showName = input1.nextLine();
+						showName = input.nextLine();
 						System.out.println("What status would you like to set for " + showName 
-								+ "\n1. Complete\n2. In Progress\n3. NOT Complete");
+								+ "\n1. Complete\n2. In Progress\n3. Not Complete");
+
 						status = input1.nextInt();
-						tvSql.setStatus(showName,status,username);
-						System.out.println(showName + "\'s status has successfully been updated "
+						tvSql.setStatus(status,showName,username);
+						if (tvSql.getStatus(showName, username)!= null)
+						{	
+							System.out.println(showName + "\'s status has successfully been updated "
 								+ "to " + tvSql.getStatus(showName, username));
+						}
+						else
+						{
+							throw new ShowNotWatchedException();
+						}
 						break;
 					case 4:
 						System.out.println("Loading the show list");
@@ -154,7 +159,7 @@ public class TvTrackerDriver {
 						break;
 
 					case 9:
-						System.out.println("\n\nThank you for using the TV Show Status Tracker.\nSee you next time");
+						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
 						active = false;
 						break;
 					default:
@@ -165,11 +170,28 @@ public class TvTrackerDriver {
 			catch (InputMismatchException e) 
 			{
 				System.out.println("\nPlease enter a vaild option\n");
+				input1.next();
 			}
+			catch(ShowNotWatchedException e)
+			{
+				System.out.println(e.getMessage());
+			}
+			
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
 		}
+		
+		if (logInAttenpts >= MAXATTEMPTS)
+		{
+			System.out.println("\n\nMAX login attmepts reached\n\nNOW EXITING PROGRAM");
+		}
+		input.close();
+		input1.close();
+	}
+}
 
-}}
+
+
+
