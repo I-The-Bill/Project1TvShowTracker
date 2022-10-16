@@ -29,7 +29,7 @@ public class TvJDBC {
 		
 		try {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connected.");
+			//System.out.println("Connected.");
 		} catch(SQLException e) {
 			System.out.println("Could not make connection.");
 		}
@@ -43,14 +43,14 @@ public class TvJDBC {
 		return connection;
 	}
 	
-	// main is only here so we can test our method above
-	public static void main(String[] args) {
-		Connection con = TvJDBC.getConnection();
-		try {
-			con.close();
-			System.out.println("Connection closed.");
-		} catch(SQLException e) {
-			System.out.println("Could not make connection.");
-		}
-	}
+//	// main is only here so we can test our method above
+//	public static void main(String[] args) {
+//		Connection con = TvJDBC.getConnection();
+//		try {
+//			con.close();
+//			System.out.println("Connection closed.");
+//		} catch(SQLException e) {
+//			System.out.println("Could not make connection.");
+//		}
+//	}
 }

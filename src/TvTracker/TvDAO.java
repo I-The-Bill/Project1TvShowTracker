@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+//import java.sql.Statement;
+//import java.util.ArrayList;
+//import java.util.List;
 
 
 public class TvDAO implements TvTrackerDaoInterface{
@@ -15,13 +15,55 @@ public class TvDAO implements TvTrackerDaoInterface{
 
 	
 	@Override
+	public boolean Register(String username, String password) {
+		try {
+			PreparedStatement pstmt = connection.prepareStatement("Insert Tv_user(user_id, user_name, user_password)"
+					+ "value(NULL, ?, ?)");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.executeUpdate();
+			PreparedStatement pstmt1 = connection.prepareStatement("Select * from Tv_user "
+					+ "where user_name = ? and User_password = ?");
+			pstmt1.setString(1, username);
+			pstmt1.setString(2, password);
+			ResultSet rs = pstmt1.executeQuery();
+			System.out.println("y");
+			rs.first();
+			String us = "";
+			String pw ="";
+			while(rs.next()) {
+				us = rs.getString("user_name");
+				pw = rs.getString("user_password");
+				rs.next();
+				String us1 = rs.getString("user_name");
+				if (us1==null) 
+					break;
+				if (us==us1) {
+					System.out.println("This username is already chosen");
+					return false;
+				} else if (pw.length() <= 3){
+					System.out.println("Please use a password thats at least 4 characters long");
+					return false;
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.printf("\nWelcome %s\n", username);
+		return true;
+	}
+	
+	@Override
 	public boolean login(String username, String password) {
 		try {
 
-			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? ");
-			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_password = ?");
+			PreparedStatement pstmt1 = connection.prepareStatement("Select user_name from tv_user where user_name = ? && user_password = ?");
+			PreparedStatement pstmt2 = connection.prepareStatement("Select user_password from tv_user where user_name = ? && user_password = ?");
 			pstmt1.setString(1, username);
-			pstmt2.setString(1, password);
+			pstmt1.setString(2, password);
+			pstmt2.setString(1, username);
+			pstmt2.setString(2, password);
 			
 			ResultSet rs1 = pstmt1.executeQuery();
 			ResultSet rs2 = pstmt2.executeQuery();
@@ -30,22 +72,14 @@ public class TvDAO implements TvTrackerDaoInterface{
 			boolean exists2 = rs2.next();
 			 
 			if (exists1==true && exists2==true) {
-				System.out.printf("Welcome %s\n", username);
+				System.out.printf("\nWelcome %s\n", rs1.getString("user_name"));
 				return true;
-			}
-			else if (exists1==true) {
-				System.out.println("Password entered is wrong");
-				return false;
-			} 
-			else if (exists2==true) {
-				System.out.println("Cannot find this username");
-				return false;
 			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Username/password are incorrect");
+		System.out.println("\nUsername/password are incorrect");
 		return false;
 	}
 	
@@ -161,7 +195,7 @@ public class TvDAO implements TvTrackerDaoInterface{
 			ResultSet rs = pstmt.executeQuery(); 
 			
 //			rs.first();
-			String showTitle = "";
+//			String showTitle = "";
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");

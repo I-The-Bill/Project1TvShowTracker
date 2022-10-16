@@ -1,121 +1,132 @@
 package TvTracker;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 public class TvTrackerDriver {
-	public static void main(String[] args)
-	{
+	static Scanner input = new Scanner(System.in);
+	static Scanner input1 = new Scanner(System.in);
+	static Scanner input2 = new Scanner(System.in);
+	static Scanner input3 = new Scanner(System.in);
+	static Scanner repeat = new Scanner(System.in);
+	public static TvDAO tvSql = new TvDAO();
+	public static String username = "";
+	public static String password = "";
+	private static boolean entryStatus = false;
+	
+	public static void main(String[] args) {
 		//SetUp
-
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
-		System.out.println("\n\n__________________________________   \n"
-				+ "         _           _              \n"
-				+ "        / \\**       / \\**         \n"
-				+ "       /   \\**     /   \\**        \n"
-				+ "      / /*\\ \\**   / /*\\ \\**     \n"
-				+ "     / /** \\ \\** / /** \\ \\**    \n"
-				+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
-				+ "   / /**     \\___/**     \\ \\**   \n"
-				+ "  / /**        ****       \\ \\**   \n"
-				+ " | |**                    |  |**    \n"
-				+ " | |*_____________________|  |**    \n"
-				+ " |                           |**    \n"
-				+ " |  TV SHOW STATUS TRACKER   |**    \n"
-				+ " |  _______________________  |**    \n"
-				+ " | |**                     | |**    \n"
-				+ " | |**                     | |**    \n"
-				+ "  \\ \\*        ___         / /**   \n"
-				+ "   \\ \\*      / _ \\       / /**   \n"
-				+ "    \\ \\*    / /*\\ \\     / /**   \n"
-				+ "     \\ \\*  / /** \\ \\   / /**    \n"
-				+ "      \\ \\*/ /**   \\ \\_/ /**     \n"
-				+ "       \\   /**     \\   /**        \n"
-				+ "        \\_/**       \\_/**         \n" 
-				+ "          **          **            \n"
-				+ "_________________________________   \n"
-			    + "\n\n                                \n");
-		String username = "Bill";
-		String password = "1325";
-		boolean entryStatus = false;
-		TvDAO tvSql = new TvDAO();
-		Show show = new Show();
-
-		/* Making sure a username is entered 
-		 * 
-		*/
-		while (username.equalsIgnoreCase(""))
-		{
-			try 
-			{
-				System.out.println("Please enter your user name:");
-				username = input.nextLine();
-				System.out.println("Please enter your password:");
-				password = input1.nextLine();
-			} 	
-			catch (Exception e) 
-			{
-				System.out.println("__Please enter a username__\n");
-			}
-		}
-		/*login process. 
-		*/
-		try 
-		{
-			if (tvSql.login(username, password)==true) {
-				entryStatus = true;
-			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-		
+		System.out.println("\n_________________________________\n"
+						+ "         _           _              \n"
+						+ "        / \\**       / \\**         \n"
+						+ "       / _ \\**     / _ \\**        \n"
+						+ "      / /*\\ \\**   / /*\\ \\**     \n"
+						+ "     / /** \\ \\** / /** \\ \\**    \n"
+						+ "    / /**   \\ \\_/ /**   \\ \\**   \n"
+						+ "   / /**     \\___/**     \\ \\**   \n"
+						+ "  / /**        ****       \\ \\**   \n"
+						+ " | |**                    |  |**    \n"
+						+ " | |*_____________________|  |**    \n"
+						+ " |                           |**    \n"
+						+ " |  TV SHOW STATUS TRACKER   |**    \n"
+						+ " |  _______________________  |**    \n"
+						+ " | |**                     | |**    \n"
+						+ " | |**                     | |**    \n"
+						+ "  \\ \\*        ___         / /**   \n"
+						+ "   \\ \\*      / _ \\       / /**   \n"
+						+ "    \\ \\*    / /*\\ \\     / /**   \n"
+						+ "     \\ \\*  / /** \\ \\   / /**    \n"
+						+ "      \\ \\_/ /**   \\ \\_/ /**     \n"
+						+ "       \\   /**     \\   /**        \n"
+						+ "        \\_/**       \\_/**         \n" 
+						+ "          **          **            \n"
+						+ "_________________________________   \n"
+						+ "                                    \n"
+						+ "Main Menu                           \n");
 		
 		boolean active = true;
 		while (active == true)
 		{
-			Show x = new Show();
-			System.out.println("\nWhat would you like to do?\n"
-							+"\n1. Check the status of a single show"
-							+"\n2. check the status of all my shows"
-							+"\n3. Update the status of a show"
+			System.out.println("What would you like to do?\n"
+							+"\n1. Log In"
+							+"\n2. Check the status of a single show"
+							+"\n3. Check the status of all my shows"
+							+"\n4. Update the status of a show"
+							+"\n5. Log out"
+							+"\n6. Create new registery"
 							+"\nPress 9 to Quit");
 
 
-			int toDo = input1.nextInt();
 			String showName = "";
 			int status = 0;
 			try 
 			{
+				int toDo = input1.nextInt();
 
 				switch(toDo) {
 					case 1:
+						if(entryStatus==true) {
+							System.out.println("\nYou are already logged in");
+							break;
+						}
+						logIn(false, username, password, input2, input3, repeat);
+						break;
+						
+					case 2:
+						if(entryStatus==false) {
+							System.out.println("\nPlease login first");
+							break;
+						}
 						System.out.println("Please enter the title of the show you want to check");
 						showName = input.nextLine();
 						System.out.println("The show "+ showName + "\'s Status is: " + tvSql.getStatus(showName, username));
 						break;
 					
-					case 2:
+					case 3:
+						if(entryStatus==false) {
+							System.out.println("\nPlease login first");
+							break;
+						}
 						System.out.println("\nYour history log:");
 						tvSql.getAllStatus(username);
 						break;
 						
-					case 3:
+					case 4:
+						if(entryStatus==false) {
+							System.out.println("\nPlease login first");
+							break;
+						}
 						System.out.println("What show did you want to update?");
 						showName = input.nextLine();
 						System.out.println("What status would you like to set for " + showName 
-								+ "\n1. Complete\n2. In Progress\n3. Complete");
+								+ "\n1. Complete\n2. In Progress\n3. Not Complete");
 						status = input1.nextInt();
 						tvSql.setStatus(status,showName,username);
 						System.out.println(showName + "\'s status has successfully been updated "
 								+ "to " + tvSql.getStatus(showName, username));
 						break;
 					
-
+					case 5:
+						if(entryStatus==false) {
+							System.out.println("\nYou are not logged in yet");
+							break;
+						}
+						System.out.printf("\n%s has been logged out\n", username);
+						username = password = "";
+						break;
+						
+					case 6:
+						if(entryStatus==true) {
+							System.out.println("\nPlease logout first");
+							break;
+						}
+						System.out.println("\nCreate new Account\n");
+						logIn(true, username, password, input2, input3, repeat);
+						break;
+						
 					case 9:
 						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
 						active = false;
@@ -125,18 +136,158 @@ public class TvTrackerDriver {
 						break;
 				}
 			} 
-			catch (InputMismatchException e) 
+			catch (NoSuchElementException e) 
 			{
 				System.out.println("\nPlease enter a vaild option\n");
+				input1.next();
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
 		}
-
+		input.close();
+		input1.close();
+		input2.close();
+		input3.close();
+		repeat.close();
 
 	}
+	
+	public static void entry(Scanner input2, Scanner input3) {
+//		Scanner input2 = new Scanner(System.in);
+//		Scanner input3 = new Scanner(System.in);
+		try {
+			System.out.println("\nPlease enter your user name:");
+			username = input2.nextLine();
+			System.out.println("Please enter your password:");
+			password = input3.nextLine();
+			//return username1;
+		} 	
+		catch (Exception e) 
+		{
+			System.out.println("Invalid characters\n");
+		}
+		//input2.close();
+		//input3.close();
+//		return null;
+	}
+	
+	//@SuppressWarnings("resource")
+//	public static String entryU() {
+//		Scanner input2 = new Scanner(System.in);
+//		try {
+//			System.out.println("\nPlease enter your user name:");
+//			String username1 = input2.nextLine();
+//			return username1;
+//		} 	
+//		catch (Exception e) 
+//		{
+//			System.out.println("Invalid characters\n");
+//		}
+//		input2.close();
+//		return null;
+//	}
+	//@SuppressWarnings("resource")
+//	public static String entryP() {
+//		Scanner input3 = new Scanner(System.in);
+//		try {
+//			System.out.println("Please enter your password:");
+//			String password1 = input3.nextLine();
+//			return password1;
+//			
+//		} 	
+//		catch (Exception e) 
+//		{
+//			System.out.println("Invalid characters\n");
+//		}
+//		input3.close();
+//		return null;
+//	}
+	
+	public static void logIn(boolean newAC, String username, String password, Scanner input2, Scanner input3, Scanner repeat) {
+		
+//		Scanner repeat = new Scanner(System.in);
+		boolean repeatStatus = true;
+		boolean tryAgain = true;
+		String Again = "";
+		/* Making sure a username is entered 
+		 * 
+		*/
+		while (repeatStatus==true) {
+//			username = entryU();
+//			password = entryP();
+			entry(input2, input3);
+			
+			//login process. 
+			try {
+				if (newAC == false) {
+					if (tvSql.login(username, password) == true) {
+						repeatStatus = false;
+						entryStatus = true;
+						break;
+					} else {
+						System.out.println("Would you like to try again: y/n");
+						Again=repeat.nextLine();
+						if (Again.toUpperCase()=="Y") {
+							System.out.println("Please try again");
+							repeatStatus = true;
+							break;
+						} else {
+							System.out.println("Main Menu\n");
+							repeatStatus = false;
+							break;
+						} 
+					}
+
+				} else if (tvSql.Register(username, password) == true) {
+						repeatStatus = false;
+						entryStatus = true;
+						break;
+				}
+				else {
+					System.out.println("Would you like to try again: y/n");
+					Again=repeat.nextLine();
+					if (Again.toUpperCase()=="Y") {
+						System.out.println("Please try again");
+						repeatStatus = true;
+						break;
+					}
+					else {
+						System.out.println("Main Menu\n");
+						repeatStatus = false;
+						break;
+					}
+				}
+				
+//				if (newAC == false) {
+//					if (tvSql.login(username, password) == true) {
+//						repeatStatus = false;
+//						entryStatus = true;
+//						break;
+//					} 
+//
+//				} else { 
+//					if (tvSql.Register(username, password) == true) {
+//						repeatStatus = false;
+//						entryStatus = true;
+//						break;
+//					}
+//				}
+				
+			} catch (NoSuchElementException e) {
+				System.out.println("\nPlease enter a vaild option\n");
+				repeat.next();
+			}catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+//		repeat.close();
+		entryStatus = false;
+		
+	}
+	
+
 }
 
 
