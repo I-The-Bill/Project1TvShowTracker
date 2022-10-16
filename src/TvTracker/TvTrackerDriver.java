@@ -7,7 +7,6 @@ public class TvTrackerDriver {
 	public static void main(String[] args) {
 		// SetUp
 		final int MAXATTEMPTS = 3;
-		Scanner input0 = new Scanner(System.in);
 		Scanner input = new Scanner(System.in);
 		Scanner input1 = new Scanner(System.in);
 		System.out.println("\n\n__________________________________   \n" + "         _           _              \n"
@@ -30,11 +29,6 @@ public class TvTrackerDriver {
 		TvDAO tvSql = new TvDAO();
 		int logInAttenpts = 0;
 		boolean active = false;
-
-		/** Making sure a username is entered **/
-		// while (logInAttenpts < MAXATTEMPTS && entryStatus == false &&
-		// username.equalsIgnoreCase("")) {
-
 		/*
 		 * Making sure a username is entered
 		 * 
@@ -67,11 +61,12 @@ public class TvTrackerDriver {
 				e.printStackTrace();
 			}
 		}
+		
 		if (logInAttenpts >= MAXATTEMPTS) {
 			System.out.println("\n\nMAX login attmepts reached\n\nPlease register");
-			System.out.println("Please enter your user name:");
+			System.out.println("Please enter your new user name:");
 			username = input.nextLine();
-			System.out.println("Please enter your password:");
+			System.out.println("Please enter your new password:");
 			password = input1.nextLine();
 			tvSql.Register(username, password);
 			entryStatus = true;
@@ -81,6 +76,7 @@ public class TvTrackerDriver {
 		while (entryStatus == true) {
 			System.out.println("\nWhat would you like to do?\n" + "\n1. Check the status of a single show"
 					+ "\n2. check the status of all my shows" + "\n3. Update the status of a show"
+					+ "\n4. Get a single show information"+"\n5. Add a show to my list."  +"\n6. Print all the show"
 					+ "\nPress 9 to Quit");
 
 			String showName = "";
@@ -120,7 +116,29 @@ public class TvTrackerDriver {
 						throw new ShowNotWatchedException();
 					}
 					break;
-
+				
+				case 4:
+					System.out.println("Enter the show name for the information.");
+					showName = input.nextLine();
+					tvSql.getShow(showName);
+					break;
+				case 5:
+					System.out.println("What show did you want to add to the list?");
+					showName = input.nextLine();
+					System.out.println("What status would you like to set for " + showName
+							+ "\n1. Complete\n2. In Progress\n3. Not Complete");
+					status = input1.nextInt();
+					tvSql.setShow(status, showName, username);
+					if (tvSql.getStatus(showName, username) != null) {
+						System.out.println(showName + "\'s status has successfully been updated " + "to "
+								+ tvSql.getStatus(showName, username));
+					} else {
+						throw new ShowNotWatchedException();
+					}
+					break;
+				case 6:
+					System.out.println("Loading all the show available.");
+					tvSql.getAllshow();
 				case 9:
 					System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
 					entryStatus = false;
