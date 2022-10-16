@@ -42,7 +42,7 @@ public class TvTrackerDriver {
 		boolean entryStatus = false;
 		TvDAO tvSql = new TvDAO();
 		int logInAttenpts = 0;
-		boolean active = false;
+		
 
 		/* Making sure a username is entered 
 		 * 
@@ -94,7 +94,7 @@ public class TvTrackerDriver {
 		}	
 		
 	
-		while (active == true)
+		while (entryStatus == true)
 		{
 			System.out.println("\nWhat would you like to do?\n"
 							+"\n1. Check the status of a single show"
@@ -160,7 +160,7 @@ public class TvTrackerDriver {
 
 					case 9:
 						System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
-						active = false;
+						entryStatus = false;
 						break;
 					default:
 						System.out.println("\nPlease enter a vaild option\n");
