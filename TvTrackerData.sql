@@ -165,5 +165,5 @@ Select * from tv_show
 Select * from tv_show inner join watch_instance on tv_show.show_id = watch_instance.show_id inner join tv_status on watch_instance.status_id = tv_status.status_id inner join tv_user on tv_user.user_id = watch_instance.user_id where tv_user.user_name = 'john';
 
 Insert Tv_user(user_id, user_name, user_password)
-	value(NULL, ?, ?);
+	value(NULL, 'Mikey', '1687');
                     
