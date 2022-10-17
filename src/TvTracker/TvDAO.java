@@ -214,7 +214,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 			pstmt.setInt(2, getShowId(showTitle));
 			pstmt.setInt(3, x);
 			pstmt.executeUpdate();
-			System.out.println("The show" + showTitle + " has been added to the list.");
+			System.out.println("The show " + showTitle + " has been added to the list.");
 			
 		} 
 		catch (SQLException e) {
