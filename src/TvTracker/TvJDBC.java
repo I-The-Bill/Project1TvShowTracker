@@ -34,7 +34,7 @@ public class TvJDBC {
 			System.out.println("Could not make connection. Please check the following:\n"
 							 + "-- config.properties file has the right credentials.\n"
 							 + "-- config.properties file is in the resource folder\n"
-							 + "-- Resource folder is in the top directory of the projec\n"
+							 + "-- Resource folder is in the top directory of the project\n"
 							 + "-- MySQL server is running\n"
 							 + "-- Everything is updated\n\n\n"
 							 + "NOW EXITING PROGRAM");

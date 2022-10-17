@@ -213,10 +213,8 @@ public class TvDAO implements TvTrackerDaoInterface {
 			pstmt.setInt(1, getUserId(username));
 			pstmt.setInt(2, getShowId(showTitle));
 			pstmt.setInt(3, x);
-			System.out.println("1");
 			pstmt.executeUpdate();
-			System.out.println("2");
-			System.out.println("The show" + showTitle + " has been added to the list.");
+			System.out.println("The show " + showTitle + " has been added to the list.");
 			
 		} 
 		catch (SQLException e) {
@@ -240,7 +238,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 				String name = rs.getString("show_name");
 				int episodeCount = rs.getInt("episode_count");
 				Show show = new Show(id, name, episodeCount);
-				System.out.println(show);
+				System.out.printf("Show:\t%-25s\tEpisode Count:\t%-4d\tShow ID:%4d\n", show.getName(), show.getEc(),show.getId());
 
 			}
 		} catch (SQLException e) {
