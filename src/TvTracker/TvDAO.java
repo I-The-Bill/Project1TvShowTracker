@@ -135,7 +135,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 		} catch (ShowNotWatchedException e) {
 			System.out.println(e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("Show with title = " + showTitle + " not found.");
+			System.out.println("\nShow with title = " + showTitle + " not found.");
 		}
 		return null;
 	}
