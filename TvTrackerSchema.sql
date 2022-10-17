@@ -45,7 +45,7 @@ create table Watch_instance
     foreign key (user_id) REFERENCES TV_user(user_id),
     show_id int,
     foreign key (show_id) REFERENCES TV_show(show_id),
-    status_id int UNIQUE,
+    status_id int,
     foreign key (status_id) REFERENCES TV_status(status_id)
 );
 select * from Watch_instance;
