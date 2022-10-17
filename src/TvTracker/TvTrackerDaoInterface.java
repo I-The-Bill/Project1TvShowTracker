@@ -3,7 +3,6 @@ import java.util.List;
 
 public interface TvTrackerDaoInterface  
 {	
-		
 	public boolean login(String username, String password); //checks if username is in table then checks if the input password matchs the users password. Returns true if both are found else false
 	public boolean Register(String username, String password); //create new entry for username and password
 	public Show getShow(String showTitle); //use showTitle to return the details of the Show.
