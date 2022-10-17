@@ -22,7 +22,7 @@ VALUES
     (null, "Rick and Morty", '51'),
     (null, "Friday Night Light", '76'),
     (null, "The Punisher", '26'),
-	(null, "One Piec", '400'),
+	(null, "One Piece", '400'),
 	(null, "Grey’s anatomy ", '1034');
 
 -- SELECT FROM TV_show
@@ -155,3 +155,5 @@ Select * from tv_show
 	inner join tv_status on watch_instance.status_id = tv_status.status_id
     inner join tv_user on tv_user.user_id = watch_instance.user_id
 	where tv_user.user_name = 'john';
+
+Select * from tv_user;
