@@ -240,7 +240,7 @@ public class TvDAO implements TvTrackerDaoInterface {
 				String name = rs.getString("show_name");
 				int episodeCount = rs.getInt("episode_count");
 				Show show = new Show(id, name, episodeCount);
-				System.out.println(show);
+				System.out.printf("Show:\t%-25s\tEpisode Count:\t%-4d\tShow ID:%4d\n", show.getName(), show.getEc(),show.getId());
 
 			}
 		} catch (SQLException e) {
