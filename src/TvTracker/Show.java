@@ -64,7 +64,7 @@ public class Show {
 	@Override
 	public String toString() 
     {
-		return ("Show: " + this.name +"\t\tShow Id: " + this.id + "\t\tEpisode Count: " + episodeCount);
+		return ("Show: " + this.name +"\t\tShow Id: "+ this.id + "\t\tEpisode Count: "+ episodeCount);
     }
 
 }
