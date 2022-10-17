@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 
 public class TvDAO implements TvTrackerDaoInterface {
 
@@ -30,30 +31,34 @@ public class TvDAO implements TvTrackerDaoInterface {
 		try {
 
 			PreparedStatement pstmt1 = connection
-					.prepareStatement("Select user_name from tv_user where user_name = ? ");
-			PreparedStatement pstmt2 = connection
-					.prepareStatement("Select user_password from tv_user where user_password = ?");
+					.prepareStatement("Select user_name, user_password from TV_user where user_name = ? && user_password = ?");
 			pstmt1.setString(1, username);
-			pstmt2.setString(1, inPassword);
-			// pstmt1.setString
+			pstmt1.setString(2, inPassword);
+		
 			ResultSet rs1 = pstmt1.executeQuery();
-			ResultSet rs2 = pstmt2.executeQuery();
+			
 			boolean exists1 = rs1.next();
-			boolean exists2 = rs2.next();
-
-			if (exists1 == true && exists2 == true) {
+			
+			if (exists1 == true)
+			{
 				System.out.printf("\n\n\nWelcome %s\n", username);
 				return true;
-			} else if (exists1 == true) {
-				throw new BadLoginCredentialsException();
-			} else if (exists2 == true) {
-				// System.out.println("Cannot find this username");
-				throw new BadLoginCredentialsException();
 			}
-
-		} catch (BadLoginCredentialsException e) {
+			else
+			{
+				throw new BadLoginCredentialsException();
+			}			
+		} 
+		catch (BadLoginCredentialsException e) 
+		{
 			e.getMessage();
-		} catch (Exception e) {
+		}	
+		catch (SQLSyntaxErrorException e) 
+		{
+			e.getMessage();
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 		// System.out.println("Username/password are incorrect");
@@ -148,16 +153,24 @@ public class TvDAO implements TvTrackerDaoInterface {
 			pstmt.setString(1, showTitle);
 
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			
+			while (rs.next()) 
+			{
 				int id = rs.getInt("show_id");
 				String name = rs.getString("show_name");
 				int episodeCount = rs.getInt("episode_count");
 				Show show = new Show(id, name, episodeCount);
 				System.out.println(show);
-
+				return;
 			}
+			throw new SQLException();
+			
+			
 		} catch (SQLException e) {
-			System.out.println("Show with title = " + showTitle + " not found.");
+			System.out.println("Show with title \"" + showTitle + "\" not found.");
+		}
+		catch (Exception e) {
+			System.out.println("Show with title \"" + showTitle + "\" not found.");
 		}
 
 	}
@@ -205,7 +218,12 @@ public class TvDAO implements TvTrackerDaoInterface {
 			System.out.println("2");
 			System.out.println("The show" + showTitle + " has been added to the list.");
 			
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
+			System.out.println("Can not add the show to the list. Sorry:)");
+
+		}
+		catch (Exception e) {
 			System.out.println("Can not add the show to the list. Sorry:)");
 
 		}
