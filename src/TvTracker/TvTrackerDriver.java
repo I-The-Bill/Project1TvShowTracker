@@ -7,9 +7,6 @@ import java.util.NoSuchElementException;
 public class TvTrackerDriver {
 	static Scanner input = new Scanner(System.in);
 	static Scanner input1 = new Scanner(System.in);
-	static Scanner input2 = new Scanner(System.in);
-	static Scanner input3 = new Scanner(System.in);
-	static Scanner repeat = new Scanner(System.in);
 	public static TvDAO tvSql = new TvDAO();
 	public static String username = "";
 	public static String password = "";
@@ -72,7 +69,7 @@ public class TvTrackerDriver {
 							System.out.println("\nYou are already logged in");
 							break;
 						}
-						logIn(false, username, password, input2, input3, repeat);
+						logIn(false, username, password, input, input1, input1);
 						break;
 						
 					case 2:
@@ -124,7 +121,7 @@ public class TvTrackerDriver {
 							break;
 						}
 						System.out.println("\nCreate new Account\n");
-						logIn(true, username, password, input2, input3, repeat);
+						logIn(true, username, password, input, input1, input1);
 						break;
 						
 					case 9:
@@ -148,15 +145,9 @@ public class TvTrackerDriver {
 		}
 		input.close();
 		input1.close();
-		input2.close();
-		input3.close();
-		repeat.close();
-
 	}
 	
 	public static void entry(Scanner input2, Scanner input3) {
-//		Scanner input2 = new Scanner(System.in);
-//		Scanner input3 = new Scanner(System.in);
 		try {
 			System.out.println("\nPlease enter your user name:");
 			username = input2.nextLine();
@@ -168,46 +159,11 @@ public class TvTrackerDriver {
 		{
 			System.out.println("Invalid characters\n");
 		}
-		//input2.close();
-		//input3.close();
-//		return null;
 	}
 	
-	//@SuppressWarnings("resource")
-//	public static String entryU() {
-//		Scanner input2 = new Scanner(System.in);
-//		try {
-//			System.out.println("\nPlease enter your user name:");
-//			String username1 = input2.nextLine();
-//			return username1;
-//		} 	
-//		catch (Exception e) 
-//		{
-//			System.out.println("Invalid characters\n");
-//		}
-//		input2.close();
-//		return null;
-//	}
-	//@SuppressWarnings("resource")
-//	public static String entryP() {
-//		Scanner input3 = new Scanner(System.in);
-//		try {
-//			System.out.println("Please enter your password:");
-//			String password1 = input3.nextLine();
-//			return password1;
-//			
-//		} 	
-//		catch (Exception e) 
-//		{
-//			System.out.println("Invalid characters\n");
-//		}
-//		input3.close();
-//		return null;
-//	}
 	
 	public static void logIn(boolean newAC, String username, String password, Scanner input2, Scanner input3, Scanner repeat) {
 		
-//		Scanner repeat = new Scanner(System.in);
 		boolean repeatStatus = true;
 		boolean tryAgain = true;
 		String Again = "";
@@ -215,8 +171,6 @@ public class TvTrackerDriver {
 		 * 
 		*/
 		while (repeatStatus==true) {
-//			username = entryU();
-//			password = entryP();
 			entry(input2, input3);
 			
 			//login process. 
@@ -260,20 +214,6 @@ public class TvTrackerDriver {
 					}
 				}
 				
-//				if (newAC == false) {
-//					if (tvSql.login(username, password) == true) {
-//						repeatStatus = false;
-//						entryStatus = true;
-//						break;
-//					} 
-//
-//				} else { 
-//					if (tvSql.Register(username, password) == true) {
-//						repeatStatus = false;
-//						entryStatus = true;
-//						break;
-//					}
-//				}
 				
 			} catch (NoSuchElementException e) {
 				System.out.println("\nPlease enter a vaild option\n");
@@ -282,11 +222,8 @@ public class TvTrackerDriver {
 				e.printStackTrace();
 			} 
 		}
-//		repeat.close();
-		entryStatus = false;
-		
+		entryStatus = false;	
 	}
-	
 
 }
 
