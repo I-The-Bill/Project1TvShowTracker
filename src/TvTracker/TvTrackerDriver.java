@@ -139,6 +139,8 @@ public class TvTrackerDriver {
 				case 6:
 					System.out.println("Loading all the show available.");
 					tvSql.getAllshow();
+					break;
+					
 				case 9:
 					System.out.println("\nThank you for using the TV Show Status Tracker.\nSee you next time");
 					entryStatus = false;
