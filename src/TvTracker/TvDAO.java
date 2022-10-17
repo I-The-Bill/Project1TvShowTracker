@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Statement;
-//import java.util.ArrayList;
-//import java.util.List;
 
 
 public class TvDAO implements TvTrackerDaoInterface{
@@ -162,22 +159,6 @@ public class TvDAO implements TvTrackerDaoInterface{
 	@Override
 	public Show getShow(String showTitle) {
 		
-//		try {
-//			PreparedStatement pstmt = connection.prepareStatement("Select * from tv_show "
-//					+ "inner join watch_instance on tv_show.show_id = watch_instance.show_id"
-//					+ "inner join tv_user on tv_user.user_id = watch_instance.user_id");
-//			pstmt.setString(1, showTitle);
-//			
-//			ResultSet rs = pstmt.executeQuery();
-//			rs.first();
-//			int id = rs.getInt("show_id");
-//			String name = rs.getString("show_name");
-//			int episodeCount = rs.getInt("episode_count");
-//		//	Show show = new Show(id, name, episodeCount);
-//			return Show;
-//		} catch (SQLException e) {
-//			System.out.println("Show with title = " + showTitle + " not found.");
-//		}
 		return null;
 	}
 	
@@ -193,9 +174,6 @@ public class TvDAO implements TvTrackerDaoInterface{
 			
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery(); 
-			
-//			rs.first();
-//			String showTitle = "";
 			
 			while(rs.next()) {
 				int id = rs.getInt("show_id");
